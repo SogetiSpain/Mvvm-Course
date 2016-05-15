@@ -8,6 +8,8 @@ namespace SogetiSpain.MvvmCourse.UI
 {
     using System;
     using System.ComponentModel;
+    using System.Globalization;
+    using System.Reflection;
     using System.Windows;
 
     /// <summary>
@@ -69,13 +71,20 @@ namespace SogetiSpain.MvvmCourse.UI
 
             // What View is being constructed?
             Type viewType = view.GetType();
-            string viewTypeName = viewType.FullName;
+            string viewName = viewType.FullName;
+            string viewAssemblyName = viewType.GetTypeInfo().Assembly.FullName;
 
             // What ViewModel should I construct?
-            string viewModelTypeName = viewTypeName + "Model";
+            string suffix = viewName.EndsWith("View") ? "Model" : "ViewModel";
+            string viewModelName = string.Format(
+                CultureInfo.InvariantCulture,
+                "{0}{1}, {2}",
+                viewName,
+                suffix,
+                viewAssemblyName);
 
             // Construct ViewModel
-            Type viewModelType = Type.GetType(viewModelTypeName);
+            Type viewModelType = Type.GetType(viewModelName);
             object viewModel = Activator.CreateInstance(viewModelType);
 
             // Set DataContext

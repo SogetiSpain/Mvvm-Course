@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{01CAB639-1E53-40A5-90A2-CE3B92F7EA15}</ProjectGuid>
+    <ProjectGuid>{C0B663A2-F4B7-47BA-964D-94D7130D97CA}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SogetiSpain.MvvmCourse.UI</RootNamespace>
@@ -57,7 +57,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Employees\EmployeeEditView.xaml">
+    <Page Include="Employees\EmployeeListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -69,10 +69,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Employees\EmployeeEditView.xaml.cs">
-      <DependentUpon>EmployeeEditView.xaml</DependentUpon>
+    <Compile Include="Employees\EmployeeListView.xaml.cs">
+      <DependentUpon>EmployeeListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Employees\EmployeeEditViewModel.cs" />
+    <Compile Include="Employees\EmployeeListViewModel.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

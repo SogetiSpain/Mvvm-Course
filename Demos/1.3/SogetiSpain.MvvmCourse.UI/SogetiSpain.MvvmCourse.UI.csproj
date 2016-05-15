@@ -57,7 +57,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="RelayCommand.cs" />
     <Page Include="Employees\EmployeeEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -107,6 +106,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\SogetiSpain.MvvmCourse.UI.Common\SogetiSpain.MvvmCourse.UI.Common.csproj">
+      <Project>{091653d8-9282-4089-b104-90de072169da}</Project>
+      <Name>SogetiSpain.MvvmCourse.UI.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\SogetiSpain.MvvmCourse.WebServices.Client\SogetiSpain.MvvmCourse.WebServices.Client.csproj">
       <Project>{84fc9e73-35c0-4abe-8d21-819d66685e7a}</Project>
       <Name>SogetiSpain.MvvmCourse.WebServices.Client</Name>

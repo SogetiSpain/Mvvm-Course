@@ -40,6 +40,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[2.2] ViewModel-First con D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SogetiSpain.MvvmCourse.UI", "Demos\2.2\SogetiSpain.MvvmCourse.UI\SogetiSpain.MvvmCourse.UI.csproj", "{B726289D-C2ED-4400-BC20-E2162DD083B7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[3] Comunicación View-ViewModel en WPF", "[3] Comunicación View-ViewModel en WPF", "{1EDD6894-11E3-40E6-948C-78361E3906B0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[3.1] Uso de Comandos", "[3.1] Uso de Comandos", "{915AB0F9-46A8-4C9F-B1CF-4D66470FFE24}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SogetiSpain.MvvmCourse.UI", "Demos\3.1\SogetiSpain.MvvmCourse.UI\SogetiSpain.MvvmCourse.UI.csproj", "{C0B663A2-F4B7-47BA-964D-94D7130D97CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SogetiSpain.MvvmCourse.UI.Common", "SogetiSpain.MvvmCourse.UI.Common\SogetiSpain.MvvmCourse.UI.Common.csproj", "{091653D8-9282-4089-B104-90DE072169DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +94,14 @@ Global
 		{B726289D-C2ED-4400-BC20-E2162DD083B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B726289D-C2ED-4400-BC20-E2162DD083B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B726289D-C2ED-4400-BC20-E2162DD083B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0B663A2-F4B7-47BA-964D-94D7130D97CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0B663A2-F4B7-47BA-964D-94D7130D97CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0B663A2-F4B7-47BA-964D-94D7130D97CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0B663A2-F4B7-47BA-964D-94D7130D97CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{091653D8-9282-4089-B104-90DE072169DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{091653D8-9282-4089-B104-90DE072169DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{091653D8-9282-4089-B104-90DE072169DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{091653D8-9282-4089-B104-90DE072169DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -101,5 +117,7 @@ Global
 		{01CAB639-1E53-40A5-90A2-CE3B92F7EA15} = {2AA67FDB-50E8-4FE6-932E-AF99E20130D8}
 		{67ED735A-A380-443B-9F60-F4BEEAC99461} = {17B0813D-079F-4F2B-9D55-588DBC227645}
 		{B726289D-C2ED-4400-BC20-E2162DD083B7} = {67ED735A-A380-443B-9F60-F4BEEAC99461}
+		{915AB0F9-46A8-4C9F-B1CF-4D66470FFE24} = {1EDD6894-11E3-40E6-948C-78361E3906B0}
+		{C0B663A2-F4B7-47BA-964D-94D7130D97CA} = {915AB0F9-46A8-4C9F-B1CF-4D66470FFE24}
 	EndGlobalSection
 EndGlobal
