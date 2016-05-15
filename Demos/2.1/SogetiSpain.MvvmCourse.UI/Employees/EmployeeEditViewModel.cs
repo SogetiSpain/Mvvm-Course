@@ -7,6 +7,7 @@
 namespace SogetiSpain.MvvmCourse.UI.Employees
 {
     using System.ComponentModel;
+    using System.Windows;
     using System.Windows.Input;
     using WebServices;
     using WebServices.Client.EmployeeServiceClient;
@@ -37,6 +38,12 @@ namespace SogetiSpain.MvvmCourse.UI.Employees
         /// </summary>
         public EmployeeEditViewModel()
         {
+            if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
+            {
+                return;
+            }
+
+            this.EmployeeId = 1;
             this.SaveCommand = new RelayCommand(this.OnSave);
         }
 
