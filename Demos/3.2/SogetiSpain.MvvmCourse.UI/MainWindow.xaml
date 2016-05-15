@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SogetiSpain.MvvmCourse.UI"
         xmlns:Employees="clr-namespace:SogetiSpain.MvvmCourse.UI.Employees"
         mc:Ignorable="d"
-        Title="Ejemplo de Uso de Comandos para la comunicación de View a ViewModel" Height="300" Width="675">
+        Title="Ejemplo Propiedades Adjuntas y Comportamientos" Height="300" Width="675">
     <Window.Resources>
         <ResourceDictionary>
             <Style TargetType="Button">

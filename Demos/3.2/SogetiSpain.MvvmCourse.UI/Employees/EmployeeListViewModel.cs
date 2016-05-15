@@ -16,9 +16,14 @@ namespace SogetiSpain.MvvmCourse.UI.Employees
     /// <summary>
     /// Represents the view model for Employee list view.
     /// </summary>
-    public sealed class EmployeeListViewModel
+    public sealed class EmployeeListViewModel : INotifyPropertyChanged
     {
         #region Fields
+
+        /// <summary>
+        /// Defines the employee collection.
+        /// </summary>
+        private ObservableCollection<EmployeeDto> employees;
 
         /// <summary>
         /// Defines the selected employee.
@@ -34,21 +39,19 @@ namespace SogetiSpain.MvvmCourse.UI.Employees
         /// </summary>
         public EmployeeListViewModel()
         {
-            if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
-            {
-                return;
-            }
-
-            using (EmployeeServiceClient serviceClient = new EmployeeServiceClient())
-            {
-                IEnumerable<EmployeeDto> allEmployees = serviceClient.GetAllAsync().Result;
-                this.Employees = new ObservableCollection<EmployeeDto>(allEmployees);
-            }
-
             this.DeleteCommand = new RelayCommand(this.OnDelete, this.CanDelete);
         }
 
         #endregion Constructors
+
+        #region Events
+
+        /// <summary>
+        /// Notifies clients that a property value has changed.
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+
+        #endregion Events
 
         #region Properties
 
@@ -72,8 +75,19 @@ namespace SogetiSpain.MvvmCourse.UI.Employees
         /// </value>
         public ObservableCollection<EmployeeDto> Employees
         {
-            get;
-            set;
+            get
+            {
+                return this.employees;
+            }
+
+            set
+            {
+                if (this.employees != value)
+                {
+                    this.employees = value;
+                    this.PropertyChanged(this, new PropertyChangedEventArgs(nameof(this.Employees)));
+                }
+            }
         }
 
         /// <summary>
@@ -91,14 +105,35 @@ namespace SogetiSpain.MvvmCourse.UI.Employees
 
             set
             {
-                this.selectedEmployee = value;
-                this.DeleteCommand.RaiseCanExecuteChanged();
+                if (this.selectedEmployee != value)
+                {
+                    this.selectedEmployee = value;
+                    this.DeleteCommand.RaiseCanExecuteChanged();
+                    this.PropertyChanged(this, new PropertyChangedEventArgs(nameof(this.SelectedEmployee)));
+                }
             }
         }
 
         #endregion Properties
 
         #region Methods
+
+        /// <summary>
+        /// Loads the employees.
+        /// </summary>
+        public async void LoadEmployees()
+        {
+            if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
+            {
+                return;
+            }
+
+            using (EmployeeServiceClient serviceClient = new EmployeeServiceClient())
+            {
+                IEnumerable<EmployeeDto> allEmployees = await serviceClient.GetAllAsync();
+                this.Employees = new ObservableCollection<EmployeeDto>(allEmployees);
+            }
+        }
 
         /// <summary>
         /// Determines whether the user can remove the selected employee.

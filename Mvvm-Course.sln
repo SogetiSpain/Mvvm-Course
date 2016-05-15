@@ -48,6 +48,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SogetiSpain.MvvmCourse.UI",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SogetiSpain.MvvmCourse.UI.Common", "SogetiSpain.MvvmCourse.UI.Common\SogetiSpain.MvvmCourse.UI.Common.csproj", "{091653D8-9282-4089-B104-90DE072169DA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[3.2] Propiedades Adjuntas y Comportamientos", "[3.2] Propiedades Adjuntas y Comportamientos", "{5BC3E8C6-F589-48D8-AA36-040815D44E06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SogetiSpain.MvvmCourse.UI", "Demos\3.2\SogetiSpain.MvvmCourse.UI\SogetiSpain.MvvmCourse.UI.csproj", "{D201556A-FAC5-4CDE-934A-73ABC8AEEA9B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -102,6 +106,10 @@ Global
 		{091653D8-9282-4089-B104-90DE072169DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{091653D8-9282-4089-B104-90DE072169DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{091653D8-9282-4089-B104-90DE072169DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D201556A-FAC5-4CDE-934A-73ABC8AEEA9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D201556A-FAC5-4CDE-934A-73ABC8AEEA9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D201556A-FAC5-4CDE-934A-73ABC8AEEA9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D201556A-FAC5-4CDE-934A-73ABC8AEEA9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -119,5 +127,7 @@ Global
 		{B726289D-C2ED-4400-BC20-E2162DD083B7} = {67ED735A-A380-443B-9F60-F4BEEAC99461}
 		{915AB0F9-46A8-4C9F-B1CF-4D66470FFE24} = {1EDD6894-11E3-40E6-948C-78361E3906B0}
 		{C0B663A2-F4B7-47BA-964D-94D7130D97CA} = {915AB0F9-46A8-4C9F-B1CF-4D66470FFE24}
+		{5BC3E8C6-F589-48D8-AA36-040815D44E06} = {1EDD6894-11E3-40E6-948C-78361E3906B0}
+		{D201556A-FAC5-4CDE-934A-73ABC8AEEA9B} = {5BC3E8C6-F589-48D8-AA36-040815D44E06}
 	EndGlobalSection
 EndGlobal
