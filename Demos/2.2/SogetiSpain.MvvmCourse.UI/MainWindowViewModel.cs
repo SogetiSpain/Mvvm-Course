@@ -20,7 +20,7 @@ namespace SogetiSpain.MvvmCourse.UI
         /// </summary>
         public MainWindowViewModel()
         {
-            this.EmployeeViewModel = new EmployeeListViewModel();
+            this.CurrentViewModel = new EmployeeListViewModel();
         }
 
         #endregion Constructors
@@ -28,12 +28,12 @@ namespace SogetiSpain.MvvmCourse.UI
         #region Properties
 
         /// <summary>
-        /// Gets or sets the employee view model.
+        /// Gets or sets the current view model.
         /// </summary>
         /// <value>
-        /// The employee view model.
+        /// The current view model.
         /// </value>
-        public object EmployeeViewModel
+        public object CurrentViewModel
         {
             get;
             set;

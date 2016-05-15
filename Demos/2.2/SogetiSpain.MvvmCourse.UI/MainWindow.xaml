@@ -17,7 +17,7 @@
     <Window.DataContext>
         <local:MainWindowViewModel />
     </Window.DataContext>
-    <ContentControl Content="{Binding EmployeeViewModel}"
+    <ContentControl Content="{Binding CurrentViewModel}"
                     HorizontalAlignment="Center"
                     Margin="10,0,0,10"
                     VerticalAlignment="Center" />
