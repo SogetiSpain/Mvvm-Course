@@ -36,41 +36,41 @@ namespace SogetiSpain.MvvmCourse.UI
         /// <summary>
         /// Gets a value indicating whether it automatically performs locating and hooking up the view model.
         /// </summary>
-        /// <param name="view">The view.</param>
+        /// <param name="dependencyObject">The dependency object.</param>
         /// <returns>
         ///   <c>true</c> if it automatically performs locating and hooking up the view model; otherwise, <c>false</c>.
         /// </returns>
-        public static bool GetAutoWireViewModel(DependencyObject view)
+        public static bool GetAutoWireViewModel(DependencyObject dependencyObject)
         {
-            return (bool)view.GetValue(ViewModelLocator.AutoWireViewModelProperty);
+            return (bool)dependencyObject.GetValue(ViewModelLocator.AutoWireViewModelProperty);
         }
 
         /// <summary>
         /// Sets a value indicating whether it automatically performs locating and hooking up the view model.
         /// </summary>
-        /// <param name="view">The view.</param>
+        /// <param name="dependencyObject">The dependency object.</param>
         /// <param name="value"><c>true</c> if it automatically performs locating and hooking up the view model; otherwise, <c>false</c>.</param>
-        public static void SetAutoWireViewModel(DependencyObject view, bool value)
+        public static void SetAutoWireViewModel(DependencyObject dependencyObject, bool value)
         {
-            view.SetValue(ViewModelLocator.AutoWireViewModelProperty, value);
+            dependencyObject.SetValue(ViewModelLocator.AutoWireViewModelProperty, value);
         }
 
         /// <summary>
         /// Called when the 'AutoWireViewModel' property is changed.
         /// </summary>
-        /// <param name="view">The view.</param>
-        /// <param name="e">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="dependencyObject">The dependency object.</param>
+        /// <param name="e">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
         private static void AutoWireViewModelChanged(
-            DependencyObject view,
+            DependencyObject dependencyObject,
             DependencyPropertyChangedEventArgs e)
         {
-            if (DesignerProperties.GetIsInDesignMode(view))
+            if (DesignerProperties.GetIsInDesignMode(dependencyObject))
             {
                 return;
             }
 
             // What View is being constructed?
-            Type viewType = view.GetType();
+            Type viewType = dependencyObject.GetType();
             string viewName = viewType.FullName;
             string viewAssemblyName = viewType.GetTypeInfo().Assembly.FullName;
 
@@ -88,7 +88,7 @@ namespace SogetiSpain.MvvmCourse.UI
             object viewModel = Activator.CreateInstance(viewModelType);
 
             // Set DataContext
-            ((FrameworkElement)view).DataContext = viewModel;
+            ((FrameworkElement)dependencyObject).DataContext = viewModel;
         }
 
         #endregion Methods

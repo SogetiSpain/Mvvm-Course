@@ -1,5 +1,5 @@
 ﻿// ----------------------------------------------------------------------------
-// <copyright file="ExecuteMethodOnLoadedBehaviour.cs" company="SOGETI Spain">
+// <copyright file="ExampleAttachedBehavior.cs" company="SOGETI Spain">
 //     Copyright © 2016 SOGETI Spain. All rights reserved.
 //     MVVM Course by Óscar Fernández González a.k.a. Osc@rNET.
 // </copyright>
@@ -10,9 +10,9 @@ namespace SogetiSpain.MvvmCourse.UI
     using System.Windows;
 
     /// <summary>
-    /// Represents the behaviour for execute a method when the view is loaded.
+    /// Represents the attached behavior for execute a method when the view is loaded.
     /// </summary>
-    public static class ExecuteMethodOnLoadedBehaviour
+    public static class ExampleAttachedBehavior
     {
         #region Fields
 
@@ -23,8 +23,8 @@ namespace SogetiSpain.MvvmCourse.UI
             DependencyProperty.RegisterAttached(
                 "MethodNameToExecute",
                 typeof(string),
-                typeof(ExecuteMethodOnLoadedBehaviour),
-                new PropertyMetadata(null, ExecuteMethodOnLoadedBehaviour.MethodNameToExecuteChanged));
+                typeof(ExampleAttachedBehavior),
+                new PropertyMetadata(null, ExampleAttachedBehavior.OnMethodNameToExecuteChanged));
 
         #endregion Fields
 
@@ -33,40 +33,40 @@ namespace SogetiSpain.MvvmCourse.UI
         /// <summary>
         /// Gets the method name to execute when the view is loaded.
         /// </summary>
-        /// <param name="view">The view.</param>
+        /// <param name="dependencyObject">The dependency object.</param>
         /// <returns>
         /// The method name to execute when the view is loaded.
         /// </returns>
-        public static string GetMethodNameToExecute(DependencyObject view)
+        public static string GetMethodNameToExecute(DependencyObject dependencyObject)
         {
-            return (string)view.GetValue(ExecuteMethodOnLoadedBehaviour.MethodNameToExecuteProperty);
+            return (string)dependencyObject.GetValue(ExampleAttachedBehavior.MethodNameToExecuteProperty);
         }
 
         /// <summary>
         /// Sets the method name to execute when the view is loaded.
         /// </summary>
-        /// <param name="view">The view.</param>
+        /// <param name="dependencyObject">The dependency object.</param>
         /// <param name="value">The method name to execute when the view is loaded.</param>
-        public static void SetMethodNameToExecute(DependencyObject view, string value)
+        public static void SetMethodNameToExecute(DependencyObject dependencyObject, string value)
         {
-            view.SetValue(ExecuteMethodOnLoadedBehaviour.MethodNameToExecuteProperty, value);
+            dependencyObject.SetValue(ExampleAttachedBehavior.MethodNameToExecuteProperty, value);
         }
 
         /// <summary>
         /// Called when the 'MethodNameToExecute' property is changed.
         /// </summary>
-        /// <param name="view">The view.</param>
-        /// <param name="e">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
-        private static void MethodNameToExecuteChanged(
-            DependencyObject view,
+        /// <param name="dependencyObject">The dependency object.</param>
+        /// <param name="e">The <see cref="DependencyPropertyChangedEventArgs" /> instance containing the event data.</param>
+        private static void OnMethodNameToExecuteChanged(
+            DependencyObject dependencyObject,
             DependencyPropertyChangedEventArgs e)
         {
-            FrameworkElement viewControl = view as FrameworkElement;
-            if (viewControl != null)
+            FrameworkElement view = dependencyObject as FrameworkElement;
+            if (view != null)
             {
-                viewControl.Loaded += (sender, args) =>
+                view.Loaded += (sender, args) =>
                 {
-                    object viewModel = viewControl.DataContext;
+                    object viewModel = view.DataContext;
                     if (viewModel == null)
                     {
                         return;

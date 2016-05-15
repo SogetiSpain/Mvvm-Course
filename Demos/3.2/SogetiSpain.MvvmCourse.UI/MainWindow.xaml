@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SogetiSpain.MvvmCourse.UI"
+        xmlns:Interactivity="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:Employees="clr-namespace:SogetiSpain.MvvmCourse.UI.Employees"
         mc:Ignorable="d"
         Title="Ejemplo Propiedades Adjuntas y Comportamientos" Height="300" Width="675">
@@ -19,6 +20,73 @@
             </Style>
         </ResourceDictionary>
     </Window.Resources>
-    <Employees:EmployeeListView HorizontalAlignment="Center"
-                                VerticalAlignment="Center" />
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="15" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- ##### [ Employee List ] ##### -->
+
+        <Employees:EmployeeListView Grid.Column="0"
+                                    Grid.ColumnSpan="2"
+                                    Grid.Row="0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center" />
+
+        <!-- ##### [ First Name ] ##### -->
+
+        <Label x:Name="FirstNameLabel"
+               Content="First Name"
+               Grid.Column="0"
+               Grid.Row="2"
+               HorizontalAlignment="Left"
+               Margin="3"
+               VerticalAlignment="Center" />
+        <TextBox x:Name="FirstNameTextBox"
+                 Grid.Column="1"
+                 Grid.Row="2"
+                 Height="23"
+                 HorizontalAlignment="Left"
+                 Margin="3"
+                 VerticalAlignment="Center"
+                 VerticalContentAlignment="Center"
+                 Width="250">
+            <Interactivity:Interaction.Behaviors>
+                <local:ExampleBlendBehavior IsWatermarkEnabled="True"
+                                            WatermarkText="Enter your first name" />
+            </Interactivity:Interaction.Behaviors>
+        </TextBox>
+
+        <!-- ##### [ Last Name ] ##### -->
+
+        <Label x:Name="LastNameLabel"
+               Content="Last Name"
+               Grid.Column="0"
+               Grid.Row="3"
+               HorizontalAlignment="Left"
+               Margin="3"
+               VerticalAlignment="Center" />
+        <TextBox x:Name="LastNameTextBox"
+                 Grid.Column="1"
+                 Grid.Row="3"
+                 Height="23"
+                 HorizontalAlignment="Left"
+                 Margin="3"
+                 VerticalAlignment="Center"
+                 VerticalContentAlignment="Center"
+                 Width="250">
+            <Interactivity:Interaction.Behaviors>
+                <local:ExampleBlendBehavior IsWatermarkEnabled="True"
+                                            WatermarkText="Enter your last name" />
+            </Interactivity:Interaction.Behaviors>
+        </TextBox>
+    </Grid>
 </Window>

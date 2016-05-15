@@ -73,7 +73,8 @@
       <DependentUpon>EmployeeListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Employees\EmployeeListViewModel.cs" />
-    <Compile Include="ExecuteMethodOnLoadedBehaviour.cs" />
+    <Compile Include="ExampleBlendBehavior.cs" />
+    <Compile Include="ExampleAttachedBehavior.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
