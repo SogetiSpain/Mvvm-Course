@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="SogetiSpain.MvvmCourse.UI.Orders.OrderView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SogetiSpain.MvvmCourse.UI"
+             xmlns:Interactivity="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Interactions="http://schemas.microsoft.com/expression/2010/interactions"
+             mc:Ignorable="d" 
+             d:DesignHeight="160" d:DesignWidth="600">
+    <Grid x:Name="RootLayout">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- ##### [ Title ] ##### -->
+
+        <StackPanel x:Name="TitlePanel"
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    Orientation="Vertical"
+                    Style="{DynamicResource TitlePanel}">
+            <Label x:Name="TitleLabel"
+                   Content="Order"
+                   Style="{DynamicResource TitleLabel}" />
+        </StackPanel>
+
+        <!-- ##### [ Place Order ] ##### -->
+
+        <StackPanel x:Name="PlaceOrder"
+                    Grid.Column="0"
+                    Grid.Row="1"
+                    Orientation="Horizontal">
+            <TextBlock Text="Placing Order for Customer: " />
+            <TextBlock Text="{Binding CustomerId}" />
+        </StackPanel>
+    </Grid>
+</UserControl>

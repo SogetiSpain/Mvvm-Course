@@ -58,6 +58,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[4.1] Jerarquías y Navegac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SogetiSpain.MvvmCourse.UI", "Demos\4.1\SogetiSpain.MvvmCourse.UI\SogetiSpain.MvvmCourse.UI.csproj", "{9E39C382-54E5-463E-BC63-9F92A1E47509}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[5] MVVM Aplicado (Parte II)", "[5] MVVM Aplicado (Parte II)", "{2E9A0254-2E66-4306-8411-6CA4891CDD40}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[5.1] Validación e Inyección de Dependencias", "[5.1] Validación e Inyección de Dependencias", "{0B383E23-ACF7-44FF-885D-27A80DC78D01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SogetiSpain.MvvmCourse.UI", "Demos\5.1\SogetiSpain.MvvmCourse.UI\SogetiSpain.MvvmCourse.UI.csproj", "{A897F6F0-ABED-4093-BA80-859B9DF15DB5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -120,6 +126,10 @@ Global
 		{9E39C382-54E5-463E-BC63-9F92A1E47509}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E39C382-54E5-463E-BC63-9F92A1E47509}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E39C382-54E5-463E-BC63-9F92A1E47509}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A897F6F0-ABED-4093-BA80-859B9DF15DB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A897F6F0-ABED-4093-BA80-859B9DF15DB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A897F6F0-ABED-4093-BA80-859B9DF15DB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A897F6F0-ABED-4093-BA80-859B9DF15DB5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -141,5 +151,7 @@ Global
 		{D201556A-FAC5-4CDE-934A-73ABC8AEEA9B} = {5BC3E8C6-F589-48D8-AA36-040815D44E06}
 		{F1FB3951-8C69-4CB4-A202-688AB4F5724D} = {CC746FAD-1976-47EF-9612-FF8A63D469C5}
 		{9E39C382-54E5-463E-BC63-9F92A1E47509} = {F1FB3951-8C69-4CB4-A202-688AB4F5724D}
+		{0B383E23-ACF7-44FF-885D-27A80DC78D01} = {2E9A0254-2E66-4306-8411-6CA4891CDD40}
+		{A897F6F0-ABED-4093-BA80-859B9DF15DB5} = {0B383E23-ACF7-44FF-885D-27A80DC78D01}
 	EndGlobalSection
 EndGlobal
