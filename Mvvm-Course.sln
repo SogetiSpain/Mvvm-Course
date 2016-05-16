@@ -52,6 +52,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[3.2] Propiedades Adjuntas 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SogetiSpain.MvvmCourse.UI", "Demos\3.2\SogetiSpain.MvvmCourse.UI\SogetiSpain.MvvmCourse.UI.csproj", "{D201556A-FAC5-4CDE-934A-73ABC8AEEA9B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[4] MVVM Aplicado (Parte I)", "[4] MVVM Aplicado (Parte I)", "{CC746FAD-1976-47EF-9612-FF8A63D469C5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[4.1] Jerarquías y Navegación", "[4.1] Jerarquías y Navegación", "{F1FB3951-8C69-4CB4-A202-688AB4F5724D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SogetiSpain.MvvmCourse.UI", "Demos\4.1\SogetiSpain.MvvmCourse.UI\SogetiSpain.MvvmCourse.UI.csproj", "{9E39C382-54E5-463E-BC63-9F92A1E47509}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -110,6 +116,10 @@ Global
 		{D201556A-FAC5-4CDE-934A-73ABC8AEEA9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D201556A-FAC5-4CDE-934A-73ABC8AEEA9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D201556A-FAC5-4CDE-934A-73ABC8AEEA9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E39C382-54E5-463E-BC63-9F92A1E47509}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E39C382-54E5-463E-BC63-9F92A1E47509}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E39C382-54E5-463E-BC63-9F92A1E47509}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E39C382-54E5-463E-BC63-9F92A1E47509}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -129,5 +139,7 @@ Global
 		{C0B663A2-F4B7-47BA-964D-94D7130D97CA} = {915AB0F9-46A8-4C9F-B1CF-4D66470FFE24}
 		{5BC3E8C6-F589-48D8-AA36-040815D44E06} = {1EDD6894-11E3-40E6-948C-78361E3906B0}
 		{D201556A-FAC5-4CDE-934A-73ABC8AEEA9B} = {5BC3E8C6-F589-48D8-AA36-040815D44E06}
+		{F1FB3951-8C69-4CB4-A202-688AB4F5724D} = {CC746FAD-1976-47EF-9612-FF8A63D469C5}
+		{9E39C382-54E5-463E-BC63-9F92A1E47509} = {F1FB3951-8C69-4CB4-A202-688AB4F5724D}
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,32 @@
+﻿<Window x:Class="SogetiSpain.MvvmCourse.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SogetiSpain.MvvmCourse.UI"
+        xmlns:Customers="clr-namespace:SogetiSpain.MvvmCourse.UI.Customers"
+        xmlns:OrderPreparation="clr-namespace:SogetiSpain.MvvmCourse.UI.OrderPreparation"
+        xmlns:Orders="clr-namespace:SogetiSpain.MvvmCourse.UI.Orders"
+        mc:Ignorable="d"
+        Title="Ejemplo Jerarquías y Navegación en MVVM" Height="300" Width="675">
+    <Window.DataContext>
+        <local:MainWindowViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        <ResourceDictionary>
+            <DataTemplate DataType="{x:Type Customers:CustomerListViewModel}">
+                <Customers:CustomerListView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type OrderPreparation:OrderPreparationViewModel}">
+                <OrderPreparation:OrderPreparationView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type Orders:OrderViewModel}">
+                <Orders:OrderView />
+            </DataTemplate>
+        </ResourceDictionary>
+    </Window.Resources>
+    <ContentControl Content="{Binding CurrentViewModel}"
+                    HorizontalAlignment="Center"
+                    Margin="10,0,0,10"
+                    VerticalAlignment="Center" />
+</Window>
