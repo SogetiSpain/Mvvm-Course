@@ -9,6 +9,7 @@ namespace SogetiSpain.MvvmCourse.UI
     using Customers;
     using OrderPreparation;
     using Orders;
+    using WebServices;
 
     /// <summary>
     /// Represents the view model for main window.
@@ -16,6 +17,11 @@ namespace SogetiSpain.MvvmCourse.UI
     public sealed class MainWindowViewModel : BindableBase
     {
         #region Fields
+
+        /// <summary>
+        /// Defines the customer edit view model.
+        /// </summary>
+        private readonly CustomerEditViewModel customerEditViewModel;
 
         /// <summary>
         /// Defines the customer list view model.
@@ -46,9 +52,17 @@ namespace SogetiSpain.MvvmCourse.UI
         /// </summary>
         public MainWindowViewModel()
         {
+            this.customerEditViewModel = new CustomerEditViewModel();
+
             this.customerListViewModel = new CustomerListViewModel();
+            this.customerListViewModel.AddCustomerRequested += this.NavigateToAddCustomer;
+            this.customerListViewModel.EditCustomerRequested += this.NavigateToEditCustomer;
+            this.customerListViewModel.PlaceOrderRequested += this.NavigateToOrder;
+
             this.orderPreparationViewModel = new OrderPreparationViewModel();
             this.orderViewModel = new OrderViewModel();
+
+            this.NavigateCommand = new RelayCommand<NavigationDestination>(this.OnNavigate);
         }
 
         #endregion Constructors
@@ -74,6 +88,75 @@ namespace SogetiSpain.MvvmCourse.UI
             }
         }
 
+        /// <summary>
+        /// Gets the navigate command.
+        /// </summary>
+        /// <value>
+        /// The navigate command.
+        /// </value>
+        public RelayCommand<NavigationDestination> NavigateCommand
+        {
+            get;
+            private set;
+        }
+
         #endregion Properties
+
+        #region Methods
+
+        /// <summary>
+        /// Navigates to add customer.
+        /// </summary>
+        /// <param name="customer">The customer.</param>
+        private void NavigateToAddCustomer(CustomerDto customer)
+        {
+            this.customerEditViewModel.EditMode = false;
+            this.customerEditViewModel.SetCustomer(customer);
+
+            this.CurrentViewModel = this.customerEditViewModel;
+        }
+
+        /// <summary>
+        /// Navigates to edit customer.
+        /// </summary>
+        /// <param name="customer">The customer.</param>
+        private void NavigateToEditCustomer(CustomerDto customer)
+        {
+            this.customerEditViewModel.EditMode = true;
+            this.customerEditViewModel.SetCustomer(customer);
+
+            this.CurrentViewModel = this.customerEditViewModel;
+        }
+
+        /// <summary>
+        /// Navigates to order.
+        /// </summary>
+        /// <param name="customerId">The customer identifier.</param>
+        private void NavigateToOrder(int customerId)
+        {
+            this.orderViewModel.CustomerId = customerId;
+            this.CurrentViewModel = this.orderViewModel;
+        }
+
+        /// <summary>
+        /// Called when navigate.
+        /// </summary>
+        /// <param name="destination">The destination.</param>
+        private void OnNavigate(NavigationDestination destination)
+        {
+            switch (destination)
+            {
+                case NavigationDestination.OrderPreparation:
+                    this.CurrentViewModel = this.orderPreparationViewModel;
+                    break;
+
+                case NavigationDestination.Customers:
+                default:
+                    this.CurrentViewModel = this.customerListViewModel;
+                    break;
+            }
+        }
+
+        #endregion Methods
     }
 }

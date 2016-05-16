@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="SogetiSpain.MvvmCourse.UI.OrderPreparation.OrderPreparationView"
+﻿<UserControl x:Class="SogetiSpain.MvvmCourse.UI.Customers.CustomerEditView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -26,7 +26,7 @@
                     Orientation="Vertical"
                     Style="{DynamicResource TitlePanel}">
             <Label x:Name="TitleLabel"
-                   Content="Order Preparation"
+                   Content="Add / Edit Customer"
                    Style="{DynamicResource TitleLabel}" />
         </StackPanel>
     </Grid>

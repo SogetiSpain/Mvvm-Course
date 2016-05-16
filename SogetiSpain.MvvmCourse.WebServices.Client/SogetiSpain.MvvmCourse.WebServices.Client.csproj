@@ -48,6 +48,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\CustomerServiceClient\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\EmployeeServiceClient\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -75,6 +80,16 @@
     <None Include="Service References\ArtistServiceClient\ArtistService2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\CustomerServiceClient\CustomerService.wsdl" />
+    <None Include="Service References\CustomerServiceClient\CustomerService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\CustomerServiceClient\CustomerService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\CustomerServiceClient\CustomerService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\EmployeeServiceClient\EmployeeService.wsdl" />
     <None Include="Service References\EmployeeServiceClient\EmployeeService.xsd">
       <SubType>Designer</SubType>
@@ -88,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\ArtistServiceClient\" />
+    <WCFMetadataStorage Include="Service References\CustomerServiceClient\" />
     <WCFMetadataStorage Include="Service References\EmployeeServiceClient\" />
   </ItemGroup>
   <ItemGroup>
@@ -116,6 +132,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\EmployeeServiceClient\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CustomerServiceClient\CustomerService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CustomerServiceClient\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CustomerServiceClient\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CustomerServiceClient\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

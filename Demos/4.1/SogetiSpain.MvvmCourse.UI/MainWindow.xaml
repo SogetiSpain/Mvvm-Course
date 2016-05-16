@@ -8,12 +8,15 @@
         xmlns:OrderPreparation="clr-namespace:SogetiSpain.MvvmCourse.UI.OrderPreparation"
         xmlns:Orders="clr-namespace:SogetiSpain.MvvmCourse.UI.Orders"
         mc:Ignorable="d"
-        Title="Ejemplo Jerarquías y Navegación en MVVM" Height="300" Width="675">
+        Title="Ejemplo Jerarquías y Navegación en MVVM" Height="550" Width="675">
     <Window.DataContext>
         <local:MainWindowViewModel />
     </Window.DataContext>
     <Window.Resources>
         <ResourceDictionary>
+            <DataTemplate DataType="{x:Type Customers:CustomerEditViewModel}">
+                <Customers:CustomerEditView />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type Customers:CustomerListViewModel}">
                 <Customers:CustomerListView />
             </DataTemplate>
@@ -25,8 +28,42 @@
             </DataTemplate>
         </ResourceDictionary>
     </Window.Resources>
-    <ContentControl Content="{Binding CurrentViewModel}"
-                    HorizontalAlignment="Center"
-                    Margin="10,0,0,10"
-                    VerticalAlignment="Center" />
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid x:Name="NavigationBarLayout"
+              Grid.Column="0"
+              Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Button x:Name="NavigateToCustomersButton"
+                    Command="{Binding NavigateCommand, Mode=OneTime}"
+                    CommandParameter="{x:Static local:NavigationDestination.Customers}"
+                    Content="Customers"
+                    Grid.Column="0"
+                    Grid.Row="0" />
+            <Button x:Name="NavigateToOrderPreparationButton"
+                    Command="{Binding NavigateCommand, Mode=OneTime}"
+                    CommandParameter="{x:Static local:NavigationDestination.OrderPreparation}"
+                    Content="Order Preparation"
+                    Grid.Column="2"
+                    Grid.Row="0" />
+        </Grid>
+        <Grid x:Name="MainContentLayout"
+              Grid.Column="0"
+              Grid.Row="1">
+            <ContentControl Content="{Binding CurrentViewModel}" />
+        </Grid>
+    </Grid>
 </Window>
