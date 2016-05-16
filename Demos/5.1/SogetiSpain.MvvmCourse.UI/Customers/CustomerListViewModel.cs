@@ -9,8 +9,8 @@ namespace SogetiSpain.MvvmCourse.UI.Customers
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using Services;
     using WebServices;
-    using WebServices.Client.CustomerServiceClient;
 
     /// <summary>
     /// Represents the view model for customer list view.
@@ -18,6 +18,11 @@ namespace SogetiSpain.MvvmCourse.UI.Customers
     public sealed class CustomerListViewModel : BindableBase
     {
         #region Fields
+
+        /// <summary>
+        /// Defines the customer service client.
+        /// </summary>
+        private readonly ICustomerServiceClient customerServiceClient;
 
         /// <summary>
         /// Defines the customer collection.
@@ -29,10 +34,12 @@ namespace SogetiSpain.MvvmCourse.UI.Customers
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CustomerListViewModel"/> class.
+        /// Initializes a new instance of the <see cref="CustomerListViewModel" /> class.
         /// </summary>
-        public CustomerListViewModel()
+        /// <param name="customerServiceClient">The customer service client.</param>
+        public CustomerListViewModel(ICustomerServiceClient customerServiceClient)
         {
+            this.customerServiceClient = customerServiceClient;
             this.AddCustomerCommand = new RelayCommand(this.OnAddCustomer);
             this.EditCustomerCommand = new RelayCommand<CustomerDto>(this.OnEditCustomer);
             this.PlaceOrderCommand = new RelayCommand<CustomerDto>(this.OnPlaceOrder);
@@ -125,12 +132,10 @@ namespace SogetiSpain.MvvmCourse.UI.Customers
         /// </summary>
         public async void LoadCustomers()
         {
-            this.Customers = null;
-            using (CustomerServiceClient serviceClient = new CustomerServiceClient())
-            {
-                IEnumerable<CustomerDto> customerDtos = await serviceClient.GetAllAsync();
-                this.Customers = new ObservableCollection<CustomerDto>(customerDtos);
-            }
+            IEnumerable<CustomerDto> customerDtos =
+                await this.customerServiceClient.Proxy.GetAllAsync();
+
+            this.Customers = new ObservableCollection<CustomerDto>(customerDtos);
         }
 
         /// <summary>

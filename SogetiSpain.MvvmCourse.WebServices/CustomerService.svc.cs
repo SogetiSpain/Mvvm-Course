@@ -48,6 +48,24 @@ namespace SogetiSpain.MvvmCourse.WebServices
         #region Methods
 
         /// <summary>
+        /// Creates a specified customer.
+        /// </summary>
+        /// <param name="customerDto">The customer data transfer object.</param>
+        /// <returns>
+        /// The customer identifier.
+        /// </returns>
+        public async Task<int> CreateAsync(CustomerDto customerDto)
+        {
+            return await Task.Factory.StartNew(() =>
+            {
+                Customer customer = this.mapper.Map(customerDto, new Customer());
+                this.customerRepository.Add(customer);
+
+                return customer.Id;
+            });
+        }
+
+        /// <summary>
         /// Gets all customer.
         /// </summary>
         /// <returns>
@@ -80,6 +98,30 @@ namespace SogetiSpain.MvvmCourse.WebServices
                 CustomerDto customerDto = this.mapper.Map<Customer, CustomerDto>(customer);
 
                 return customerDto;
+            });
+        }
+
+        /// <summary>
+        /// Updates a given customer.
+        /// </summary>
+        /// <param name="customerDto">The customer data transfer object.</param>
+        /// <returns>
+        /// <c>true</c> if the specified customer was updated successfully; otherwise, <c>false</c>.
+        /// </returns>
+        public async Task<bool> UpdateAsync(CustomerDto customerDto)
+        {
+            return await Task.Factory.StartNew(() =>
+            {
+                Customer customer = this.customerRepository.GetById(customerDto.Id);
+                if (customer != null)
+                {
+                    customer = this.mapper.Map(customerDto, customer);
+                    this.customerRepository.Modify(customer);
+
+                    return true;
+                }
+
+                return false;
             });
         }
 

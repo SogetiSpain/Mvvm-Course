@@ -6,11 +6,27 @@
              xmlns:local="clr-namespace:SogetiSpain.MvvmCourse.UI"
              xmlns:Interactivity="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:Interactions="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:Converters="clr-namespace:SogetiSpain.MvvmCourse.UI.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="160" d:DesignWidth="600">
+             d:DesignHeight="235" d:DesignWidth="600">
+    <UserControl.Resources>
+        <Converters:NegatableBooleanToVisibilityConverter x:Key="VisConverter" />
+        <Converters:NegatableBooleanToVisibilityConverter x:Key="NegVisConverter" Negate="True" />
+        <Style TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError"
+                         Value="true">
+                    <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={x:Static RelativeSource.Self}, 
+                                    Path=(Validation.Errors).CurrentItem.ErrorContent}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
     <Grid x:Name="RootLayout">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition  />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -22,6 +38,7 @@
 
         <StackPanel x:Name="TitlePanel"
                     Grid.Column="0"
+                    Grid.ColumnSpan="2"
                     Grid.Row="0"
                     Orientation="Vertical"
                     Style="{DynamicResource TitlePanel}">
@@ -29,5 +46,297 @@
                    Content="Add / Edit Customer"
                    Style="{DynamicResource TitleLabel}" />
         </StackPanel>
+        <Grid x:Name="CustomerDataLayout"
+              DataContext="{Binding Customer}"
+              Grid.Column="0"
+              Grid.Row="2"
+              HorizontalAlignment="Left"
+              Margin="0"
+              VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- ##### [ First Name ] ##### -->
+
+            <Label x:Name="FirstNameLabel"
+                   Content="First Name"
+                   Grid.Column="0"
+                   Grid.Row="0"
+                   HorizontalAlignment="Left"
+                   Margin="3"
+                   VerticalAlignment="Center" />
+            <TextBox x:Name="FirstNameTextBox"
+                     Grid.Column="1"
+                     Grid.Row="0"
+                     Height="23"
+                     HorizontalAlignment="Left"
+                     Margin="3"
+                     Text="{Binding FirstName, Mode=TwoWay, ValidatesOnNotifyDataErrors=True}"
+                     VerticalAlignment="Center"
+                     VerticalContentAlignment="Center"
+                     Width="120" />
+
+            <!-- ##### [ Last Name ] ##### -->
+
+            <Label x:Name="LastNameLabel"
+                   Content="Last Name"
+                   Grid.Column="0"
+                   Grid.Row="1"
+                   HorizontalAlignment="Left"
+                   Margin="3"
+                   VerticalAlignment="Center" />
+            <TextBox x:Name="LastNameTextBox"
+                     Grid.Column="1"
+                     Grid.Row="1"
+                     Height="23"
+                     HorizontalAlignment="Left"
+                     Margin="3"
+                     Text="{Binding LastName, Mode=TwoWay, ValidatesOnNotifyDataErrors=True}"
+                     VerticalAlignment="Center"
+                     VerticalContentAlignment="Center"
+                     Width="120" />
+
+            <!-- ##### [ Company ] ##### -->
+
+            <Label x:Name="CompanyLabel"
+                   Content="Company"
+                   Grid.Column="0"
+                   Grid.Row="2"
+                   HorizontalAlignment="Left"
+                   Margin="3"
+                   VerticalAlignment="Center" />
+            <TextBox x:Name="CompanyTextBox"
+                     Grid.Column="1"
+                     Grid.Row="2"
+                     Height="23"
+                     HorizontalAlignment="Left"
+                     Margin="3"
+                     Text="{Binding Company, Mode=TwoWay, ValidatesOnNotifyDataErrors=True}"
+                     VerticalAlignment="Center"
+                     VerticalContentAlignment="Center"
+                     Width="120" />
+
+            <!-- ##### [ Phone ] ##### -->
+
+            <Label x:Name="PhoneLabel"
+                   Content="Phone"
+                   Grid.Column="0"
+                   Grid.Row="3"
+                   HorizontalAlignment="Left"
+                   Margin="3"
+                   VerticalAlignment="Center" />
+            <TextBox x:Name="PhoneTextBox"
+                     Grid.Column="1"
+                     Grid.Row="3"
+                     Height="23"
+                     HorizontalAlignment="Left"
+                     Margin="3"
+                     Text="{Binding Phone, Mode=TwoWay, ValidatesOnNotifyDataErrors=True}"
+                     VerticalAlignment="Center"
+                     VerticalContentAlignment="Center"
+                     Width="120" />
+
+            <!-- ##### [ Fax ] ##### -->
+
+            <Label x:Name="FaxLabel"
+                   Content="Fax"
+                   Grid.Column="0"
+                   Grid.Row="4"
+                   HorizontalAlignment="Left"
+                   Margin="3"
+                   VerticalAlignment="Center" />
+            <TextBox x:Name="FaxTextBox"
+                     Grid.Column="1"
+                     Grid.Row="4"
+                     Height="23"
+                     HorizontalAlignment="Left"
+                     Margin="3"
+                     Text="{Binding Fax, Mode=TwoWay, ValidatesOnNotifyDataErrors=True}"
+                     VerticalAlignment="Center"
+                     VerticalContentAlignment="Center"
+                     Width="120" />
+
+            <!-- ##### [ Email ] ##### -->
+
+            <Label x:Name="EmailLabel"
+                   Content="Email"
+                   Grid.Column="0"
+                   Grid.Row="5"
+                   HorizontalAlignment="Left"
+                   Margin="3"
+                   VerticalAlignment="Center" />
+            <TextBox x:Name="EmailTextBox"
+                     Grid.Column="1"
+                     Grid.Row="5"
+                     Height="23"
+                     HorizontalAlignment="Left"
+                     Margin="3"
+                     Text="{Binding Email, Mode=TwoWay, ValidatesOnNotifyDataErrors=True}"
+                     VerticalAlignment="Center"
+                     VerticalContentAlignment="Center"
+                     Width="120" />
+
+            <!-- ##### [ Address ] ##### -->
+
+            <Label x:Name="AddressLabel"
+                   Content="Address"
+                   Grid.Column="3"
+                   Grid.Row="0"
+                   HorizontalAlignment="Left"
+                   Margin="3"
+                   VerticalAlignment="Center" />
+            <TextBox x:Name="AddressTextBox"
+                     Grid.Column="4"
+                     Grid.Row="0"
+                     Height="23"
+                     HorizontalAlignment="Left"
+                     Margin="3"
+                     Text="{Binding Address, Mode=TwoWay, ValidatesOnNotifyDataErrors=True}"
+                     VerticalAlignment="Center"
+                     VerticalContentAlignment="Center"
+                     Width="120" />
+
+            <!-- ##### [ City ] ##### -->
+
+            <Label x:Name="CityLabel"
+                   Content="City"
+                   Grid.Column="3"
+                   Grid.Row="1"
+                   HorizontalAlignment="Left"
+                   Margin="3"
+                   VerticalAlignment="Center" />
+            <TextBox x:Name="CityTextBox"
+                     Grid.Column="4"
+                     Grid.Row="1"
+                     Height="23"
+                     HorizontalAlignment="Left"
+                     Margin="3"
+                     Text="{Binding City, Mode=TwoWay, ValidatesOnNotifyDataErrors=True}"
+                     VerticalAlignment="Center"
+                     VerticalContentAlignment="Center"
+                     Width="120" />
+
+            <!-- ##### [ State ] ##### -->
+
+            <Label x:Name="StateLabel"
+                   Content="State"
+                   Grid.Column="3"
+                   Grid.Row="2"
+                   HorizontalAlignment="Left"
+                   Margin="3"
+                   VerticalAlignment="Center" />
+            <TextBox x:Name="StateTextBox"
+                     Grid.Column="4"
+                     Grid.Row="2"
+                     Height="23"
+                     HorizontalAlignment="Left"
+                     Margin="3"
+                     Text="{Binding State, Mode=TwoWay, ValidatesOnNotifyDataErrors=True}"
+                     VerticalAlignment="Center"
+                     VerticalContentAlignment="Center"
+                     Width="120" />
+
+            <!-- ##### [ Country ] ##### -->
+
+            <Label x:Name="CountryLabel"
+                   Content="Country"
+                   Grid.Column="3"
+                   Grid.Row="3"
+                   HorizontalAlignment="Left"
+                   Margin="3"
+                   VerticalAlignment="Center" />
+            <TextBox x:Name="CountryTextBox"
+                     Grid.Column="4"
+                     Grid.Row="3"
+                     Height="23"
+                     HorizontalAlignment="Left"
+                     Margin="3"
+                     Text="{Binding Country, Mode=TwoWay, ValidatesOnNotifyDataErrors=True}"
+                     VerticalAlignment="Center"
+                     VerticalContentAlignment="Center"
+                     Width="120" />
+
+            <!-- ##### [ Postal Code ] ##### -->
+
+            <Label x:Name="PostalCodeLabel"
+                   Content="Postal Code"
+                   Grid.Column="3"
+                   Grid.Row="4"
+                   HorizontalAlignment="Left"
+                   Margin="3"
+                   VerticalAlignment="Center" />
+            <TextBox x:Name="PostalCodeTextBox"
+                     Grid.Column="4"
+                     Grid.Row="4"
+                     Height="23"
+                     HorizontalAlignment="Left"
+                     Margin="3"
+                     Text="{Binding PostalCode, Mode=TwoWay, ValidatesOnNotifyDataErrors=True}"
+                     VerticalAlignment="Center"
+                     VerticalContentAlignment="Center"
+                     Width="120" />
+        </Grid>
+
+        <!-- ##### [ Buttons ] ##### -->
+
+        <Grid Grid.Column="1"
+              Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Button x:Name="SaveButton"
+                    Command="{Binding SaveCommand, Mode=OneTime}"
+                    Content="Save"
+                    Cursor="Hand"
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    Height="23"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Visibility="{Binding EditMode, Mode=OneWay, Converter={StaticResource VisConverter}}"
+                    Width="80" />
+            <Button x:Name="AddButton"
+                    Command="{Binding SaveCommand, Mode=OneTime}"
+                    Content="Add"
+                    Cursor="Hand"
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    Height="23"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Visibility="{Binding EditMode, Mode=OneWay, Converter={StaticResource NegVisConverter}}"
+                    Width="80" />
+            <Button x:Name="CancelButton"
+                    Command="{Binding CancelCommand, Mode=OneTime}"
+                    Content="Cancel"
+                    Cursor="Hand"
+                    Grid.Column="0"
+                    Grid.Row="1"
+                    Height="23"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Width="80" />
+        </Grid>
     </Grid>
 </UserControl>

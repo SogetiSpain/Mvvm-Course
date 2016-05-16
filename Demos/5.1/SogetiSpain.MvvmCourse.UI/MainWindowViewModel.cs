@@ -7,6 +7,7 @@
 namespace SogetiSpain.MvvmCourse.UI
 {
     using Customers;
+    using Microsoft.Practices.ServiceLocation;
     using OrderPreparation;
     using Orders;
     using WebServices;
@@ -52,9 +53,10 @@ namespace SogetiSpain.MvvmCourse.UI
         /// </summary>
         public MainWindowViewModel()
         {
-            this.customerEditViewModel = new CustomerEditViewModel();
+            this.customerEditViewModel = ServiceLocator.Current.GetInstance<CustomerEditViewModel>();
+            this.customerEditViewModel.Done += this.NavivationToCustomers;
 
-            this.customerListViewModel = new CustomerListViewModel();
+            this.customerListViewModel = ServiceLocator.Current.GetInstance<CustomerListViewModel>();
             this.customerListViewModel.AddCustomerRequested += this.NavigateToAddCustomer;
             this.customerListViewModel.EditCustomerRequested += this.NavigateToEditCustomer;
             this.customerListViewModel.PlaceOrderRequested += this.NavigateToOrder;
@@ -114,6 +116,14 @@ namespace SogetiSpain.MvvmCourse.UI
             this.customerEditViewModel.SetCustomer(customer);
 
             this.CurrentViewModel = this.customerEditViewModel;
+        }
+
+        /// <summary>
+        /// Navigates to customer list.
+        /// </summary>
+        private void NavivationToCustomers()
+        {
+            this.CurrentViewModel = this.customerListViewModel;
         }
 
         /// <summary>

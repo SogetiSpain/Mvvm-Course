@@ -19,6 +19,16 @@ namespace SogetiSpain.MvvmCourse.WebServices
         #region Methods
 
         /// <summary>
+        /// Creates a specified customer.
+        /// </summary>
+        /// <param name="customerDto">The customer data transfer object.</param>
+        /// <returns>
+        /// The customer identifier.
+        /// </returns>
+        [OperationContract]
+        Task<int> CreateAsync(CustomerDto customerDto);
+
+        /// <summary>
         /// Gets all customer.
         /// </summary>
         /// <returns>
@@ -36,6 +46,16 @@ namespace SogetiSpain.MvvmCourse.WebServices
         /// </returns>
         [OperationContract]
         Task<CustomerDto> GetByIdAsync(int id);
+
+        /// <summary>
+        /// Updates a given customer.
+        /// </summary>
+        /// <param name="customerDto">The customer data transfer object.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified customer was updated successfully; otherwise, <c>false</c>.
+        /// </returns>
+        [OperationContract]
+        Task<bool> UpdateAsync(CustomerDto customerDto);
 
         #endregion Methods
     }

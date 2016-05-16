@@ -1,28 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
+﻿// ----------------------------------------------------------------------------
+// <copyright file="CustomerEditView.xaml.cs" company="SOGETI Spain">
+//     Copyright © 2016 SOGETI Spain. All rights reserved.
+//     MVVM Course by Óscar Fernández González a.k.a. Osc@rNET.
+// </copyright>
+// ----------------------------------------------------------------------------
 namespace SogetiSpain.MvvmCourse.UI.Customers
 {
+    using System.Windows.Controls;
+
     /// <summary>
-    /// Interaction logic for CustomerEditView.xaml
+    /// Interaction logic for Customer edit view.
     /// </summary>
     public partial class CustomerEditView : UserControl
     {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CustomerEditView"/> class.
+        /// </summary>
         public CustomerEditView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
+
+        #endregion Constructors
     }
 }
