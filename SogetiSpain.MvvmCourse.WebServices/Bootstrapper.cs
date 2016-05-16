@@ -70,6 +70,12 @@ namespace SogetiSpain.MvvmCourse.WebServices
 
             Bootstrapper.Container
                 .AddNewExtension<Interception>()
+                .RegisterType<ICustomerRepository, CustomerRepository>(
+                    interfaceInterceptor,
+                    unitOfWorkInterceptionBehavior);
+
+            Bootstrapper.Container
+                .AddNewExtension<Interception>()
                 .RegisterType<IEmployeeRepository, EmployeeRepository>(
                     interfaceInterceptor,
                     unitOfWorkInterceptionBehavior);
@@ -120,6 +126,31 @@ namespace SogetiSpain.MvvmCourse.WebServices
             MapperConfiguration mapperCfg = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Artist, ArtistDto>();
+
+                cfg.CreateMap<Customer, CustomerDto>()
+                .ForMember(dto => dto.Address, map => map.MapFrom(entity => entity.Address.AddressLine1))
+                .ForMember(dto => dto.City, map => map.MapFrom(entity => entity.Address.City))
+                .ForMember(dto => dto.Country, map => map.MapFrom(entity => entity.Address.Country))
+                .ForMember(dto => dto.PostalCode, map => map.MapFrom(entity => entity.Address.PostalCode))
+                .ForMember(dto => dto.State, map => map.MapFrom(entity => entity.Address.State))
+                .ReverseMap()
+                .ForSourceMember(dto => dto.Address, map => map.Ignore())
+                .ForSourceMember(dto => dto.City, map => map.Ignore())
+                .ForSourceMember(dto => dto.Country, map => map.Ignore())
+                .ForSourceMember(dto => dto.PostalCode, map => map.Ignore())
+                .ForSourceMember(dto => dto.State, map => map.Ignore())
+                .ForMember(
+                    entity => entity.Address,
+                    map => map.ResolveUsing(
+                        dto =>
+                        {
+                            return new Address(
+                                dto.Address,
+                                dto.City,
+                                dto.State,
+                                dto.Country,
+                                dto.PostalCode);
+                        }));
 
                 cfg.CreateMap<Employee, EmployeeDto>()
                 .ForMember(dto => dto.Address, map => map.MapFrom(entity => entity.Address.AddressLine1))

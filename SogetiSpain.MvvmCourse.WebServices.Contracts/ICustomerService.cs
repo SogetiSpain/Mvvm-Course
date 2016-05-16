@@ -1,5 +1,5 @@
 ﻿// ----------------------------------------------------------------------------
-// <copyright file="IEmployeeService.cs" company="SOGETI Spain">
+// <copyright file="ICustomerService.cs" company="SOGETI Spain">
 //     Copyright © 2016 SOGETI Spain. All rights reserved.
 //     MVVM Course by Óscar Fernández González a.k.a. Osc@rNET.
 // </copyright>
@@ -11,41 +11,31 @@ namespace SogetiSpain.MvvmCourse.WebServices
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Defines the contract for the employee Web Service.
+    /// Defines the contract for the customer Web Service.
     /// </summary>
     [ServiceContract]
-    public interface IEmployeeService
+    public interface ICustomerService
     {
         #region Methods
 
         /// <summary>
-        /// Gets all employees.
+        /// Gets all customer.
         /// </summary>
         /// <returns>
-        /// The all retrieved employees.
+        /// The all retrieved customer.
         /// </returns>
         [OperationContract]
-        Task<IEnumerable<EmployeeDto>> GetAllAsync();
+        Task<IEnumerable<CustomerDto>> GetAllAsync();
 
         /// <summary>
-        /// Gets an employee by its identifier.
+        /// Gets a customer by its identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>
-        /// The retrieved employee.
+        /// The retrieved customer.
         /// </returns>
         [OperationContract]
-        Task<EmployeeDto> GetByIdAsync(int id);
-
-        /// <summary>
-        /// Updates a given employee.
-        /// </summary>
-        /// <param name="employeeDto">The employee data transfer object.</param>
-        /// <returns>
-        ///   <c>true</c> if the specified employee was updated successfully; otherwise, <c>false</c>.
-        /// </returns>
-        [OperationContract]
-        Task<bool> UpdateAsync(EmployeeDto employeeDto);
+        Task<CustomerDto> GetByIdAsync(int id);
 
         #endregion Methods
     }

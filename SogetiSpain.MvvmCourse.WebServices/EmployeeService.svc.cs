@@ -88,7 +88,7 @@ namespace SogetiSpain.MvvmCourse.WebServices
         /// </summary>
         /// <param name="employeeDto">The employee data transfer object.</param>
         /// <returns>
-        ///   <c>true</c> if the specified employee was updated sucessfully; otherwise, <c>false</c>.
+        ///   <c>true</c> if the specified employee was updated successfully; otherwise, <c>false</c>.
         /// </returns>
         public async Task<bool> UpdateAsync(EmployeeDto employeeDto)
         {

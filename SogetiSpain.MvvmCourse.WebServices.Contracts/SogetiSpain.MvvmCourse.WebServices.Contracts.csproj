@@ -43,8 +43,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dtos\ArtistDto.cs" />
+    <Compile Include="Dtos\CustomerDto.cs" />
     <Compile Include="Dtos\EmployeeDto.cs" />
     <Compile Include="IArtistService.cs" />
+    <Compile Include="ICustomerService.cs" />
     <Compile Include="IEmployeeService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

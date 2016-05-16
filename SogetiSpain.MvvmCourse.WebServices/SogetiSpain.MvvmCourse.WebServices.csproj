@@ -105,6 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ArtistService.svc" />
+    <Content Include="CustomerService.svc" />
     <Content Include="EmployeeService.svc" />
     <Content Include="Global.asax" />
     <Content Include="Web.config">
@@ -116,6 +117,9 @@
       <DependentUpon>ArtistService.svc</DependentUpon>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="CustomerService.svc.cs">
+      <DependentUpon>CustomerService.svc</DependentUpon>
+    </Compile>
     <Compile Include="EmployeeService.svc.cs">
       <DependentUpon>EmployeeService.svc</DependentUpon>
     </Compile>

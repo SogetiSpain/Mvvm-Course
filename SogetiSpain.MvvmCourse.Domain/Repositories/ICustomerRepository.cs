@@ -1,17 +1,15 @@
 ﻿// ----------------------------------------------------------------------------
-// <copyright file="ArtistRepository.cs" company="SOGETI Spain">
+// <copyright file="ICustomerRepository.cs" company="SOGETI Spain">
 //     Copyright © 2016 SOGETI Spain. All rights reserved.
 //     MVVM Course by Óscar Fernández González a.k.a. Osc@rNET.
 // </copyright>
 // ----------------------------------------------------------------------------
-namespace SogetiSpain.MvvmCourse.Data
+namespace SogetiSpain.MvvmCourse.Domain
 {
-    using Domain;
-
     /// <summary>
-    /// Represents the repository of the artist entity.
+    /// Defines the contract for a repository of the customer entity.
     /// </summary>
-    public sealed class ArtistRepository : NHibernateRepository<Artist, int>, IArtistRepository
+    public interface ICustomerRepository : IRepository<Customer, int>
     {
     }
 }
