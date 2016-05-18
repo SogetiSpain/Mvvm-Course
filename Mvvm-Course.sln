@@ -64,6 +64,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[5.1] Validación e Inyecci
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SogetiSpain.MvvmCourse.UI", "Demos\5.1\SogetiSpain.MvvmCourse.UI\SogetiSpain.MvvmCourse.UI.csproj", "{A897F6F0-ABED-4093-BA80-859B9DF15DB5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[Anexo A] Inyección de Dependencias e Inversión de Control", "[Anexo A] Inyección de Dependencias e Inversión de Control", "{4779C293-E7AA-4674-B14B-803AC7706924}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[A.1] Acoplamiento Fuerte", "[A.1] Acoplamiento Fuerte", "{83C42E59-C159-4D40-A150-FE5EA3C54F29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SogetiSpain.DI-IoC.ViewLayer", "Demos\A.1\SogetiSpain.DI-IoC.ViewLayer\SogetiSpain.DI-IoC.ViewLayer.csproj", "{9C1B8D00-6199-4020-A4EB-8CF3A29EAC6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SogetiSpain.DI-IoC.PresentationLayer", "Demos\A.1\SogetiSpain.DI-IoC.PresentationLayer\SogetiSpain.DI-IoC.PresentationLayer.csproj", "{62E74EC0-59DB-4F26-AC91-DC06F0E0330D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SogetiSpain.DI-IoC.ServiceClientLayer", "Demos\A.1\SogetiSpain.DI-IoC.ServiceClientLayer\SogetiSpain.DI-IoC.ServiceClientLayer.csproj", "{F1DC1059-63C9-4FE4-BD89-57D195F4473C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B3F6F0B2-58E8-48E2-93F6-F93695FCBA33} = {B3F6F0B2-58E8-48E2-93F6-F93695FCBA33}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SogetiSpain.DI-IoC.ServiceLayer", "Demos\A.1\SogetiSpain.DI-IoC.ServiceLayer\SogetiSpain.DI-IoC.ServiceLayer.csproj", "{B3F6F0B2-58E8-48E2-93F6-F93695FCBA33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SogetiSpain.DI-IoC.SharedObjects", "Demos\A.1\SogetiSpain.DI-IoC.SharedObjects\SogetiSpain.DI-IoC.SharedObjects.csproj", "{5E9F09C6-92CF-4752-8A2C-C8F7B0538902}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -130,6 +147,26 @@ Global
 		{A897F6F0-ABED-4093-BA80-859B9DF15DB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A897F6F0-ABED-4093-BA80-859B9DF15DB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A897F6F0-ABED-4093-BA80-859B9DF15DB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C1B8D00-6199-4020-A4EB-8CF3A29EAC6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C1B8D00-6199-4020-A4EB-8CF3A29EAC6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C1B8D00-6199-4020-A4EB-8CF3A29EAC6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C1B8D00-6199-4020-A4EB-8CF3A29EAC6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62E74EC0-59DB-4F26-AC91-DC06F0E0330D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62E74EC0-59DB-4F26-AC91-DC06F0E0330D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62E74EC0-59DB-4F26-AC91-DC06F0E0330D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62E74EC0-59DB-4F26-AC91-DC06F0E0330D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1DC1059-63C9-4FE4-BD89-57D195F4473C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1DC1059-63C9-4FE4-BD89-57D195F4473C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1DC1059-63C9-4FE4-BD89-57D195F4473C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1DC1059-63C9-4FE4-BD89-57D195F4473C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3F6F0B2-58E8-48E2-93F6-F93695FCBA33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3F6F0B2-58E8-48E2-93F6-F93695FCBA33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3F6F0B2-58E8-48E2-93F6-F93695FCBA33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3F6F0B2-58E8-48E2-93F6-F93695FCBA33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E9F09C6-92CF-4752-8A2C-C8F7B0538902}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E9F09C6-92CF-4752-8A2C-C8F7B0538902}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E9F09C6-92CF-4752-8A2C-C8F7B0538902}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E9F09C6-92CF-4752-8A2C-C8F7B0538902}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -153,5 +190,11 @@ Global
 		{9E39C382-54E5-463E-BC63-9F92A1E47509} = {F1FB3951-8C69-4CB4-A202-688AB4F5724D}
 		{0B383E23-ACF7-44FF-885D-27A80DC78D01} = {2E9A0254-2E66-4306-8411-6CA4891CDD40}
 		{A897F6F0-ABED-4093-BA80-859B9DF15DB5} = {0B383E23-ACF7-44FF-885D-27A80DC78D01}
+		{83C42E59-C159-4D40-A150-FE5EA3C54F29} = {4779C293-E7AA-4674-B14B-803AC7706924}
+		{9C1B8D00-6199-4020-A4EB-8CF3A29EAC6D} = {83C42E59-C159-4D40-A150-FE5EA3C54F29}
+		{62E74EC0-59DB-4F26-AC91-DC06F0E0330D} = {83C42E59-C159-4D40-A150-FE5EA3C54F29}
+		{F1DC1059-63C9-4FE4-BD89-57D195F4473C} = {83C42E59-C159-4D40-A150-FE5EA3C54F29}
+		{B3F6F0B2-58E8-48E2-93F6-F93695FCBA33} = {83C42E59-C159-4D40-A150-FE5EA3C54F29}
+		{5E9F09C6-92CF-4752-8A2C-C8F7B0538902} = {83C42E59-C159-4D40-A150-FE5EA3C54F29}
 	EndGlobalSection
 EndGlobal
