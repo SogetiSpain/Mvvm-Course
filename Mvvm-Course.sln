@@ -100,6 +100,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SogetiSpain.DI-IoC.ServiceC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SogetiSpain.DI-IoC.View", "Demos\A.2\SogetiSpain.DI-IoC.View\SogetiSpain.DI-IoC.View.csproj", "{B72386CF-3DDC-4F71-AF61-08353A2C2D4B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[6] Pruebas Unitarias para ViewModels", "[6] Pruebas Unitarias para ViewModels", "{7E331894-AB47-4A4D-A33C-0F88EB1FBD39}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[6.1] Ejemplo Prueba Unitaria", "[6.1] Ejemplo Prueba Unitaria", "{F39AB85D-8F06-42CC-B7B1-EC860CF3B1BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SogetiSpain.UnitTesting.Example", "Demos\6.1\SogetiSpain.UnitTesting.Example\SogetiSpain.UnitTesting.Example.csproj", "{490EDA24-DE29-464D-B3ED-AF846FFE6309}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SogetiSpain.UnitTesting.Example.Tests", "Demos\6.1\SogetiSpain.UnitTesting.Example.Tests\SogetiSpain.UnitTesting.Example.Tests.csproj", "{3D272E5E-888D-4635-B5F4-A743D0B5C177}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -214,6 +222,14 @@ Global
 		{B72386CF-3DDC-4F71-AF61-08353A2C2D4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B72386CF-3DDC-4F71-AF61-08353A2C2D4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B72386CF-3DDC-4F71-AF61-08353A2C2D4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{490EDA24-DE29-464D-B3ED-AF846FFE6309}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{490EDA24-DE29-464D-B3ED-AF846FFE6309}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{490EDA24-DE29-464D-B3ED-AF846FFE6309}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{490EDA24-DE29-464D-B3ED-AF846FFE6309}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D272E5E-888D-4635-B5F4-A743D0B5C177}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D272E5E-888D-4635-B5F4-A743D0B5C177}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D272E5E-888D-4635-B5F4-A743D0B5C177}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D272E5E-888D-4635-B5F4-A743D0B5C177}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -251,5 +267,8 @@ Global
 		{81A61C3B-1461-4E74-9711-F1C55AD1CE80} = {DBD27217-37AD-464A-BF3A-125890326562}
 		{7D8FE825-C4D3-48F0-877D-56E46A219F1D} = {DBD27217-37AD-464A-BF3A-125890326562}
 		{B72386CF-3DDC-4F71-AF61-08353A2C2D4B} = {DBD27217-37AD-464A-BF3A-125890326562}
+		{F39AB85D-8F06-42CC-B7B1-EC860CF3B1BA} = {7E331894-AB47-4A4D-A33C-0F88EB1FBD39}
+		{490EDA24-DE29-464D-B3ED-AF846FFE6309} = {F39AB85D-8F06-42CC-B7B1-EC860CF3B1BA}
+		{3D272E5E-888D-4635-B5F4-A743D0B5C177} = {F39AB85D-8F06-42CC-B7B1-EC860CF3B1BA}
 	EndGlobalSection
 EndGlobal
