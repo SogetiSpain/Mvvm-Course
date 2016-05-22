@@ -61,11 +61,11 @@ namespace SogetiSpain.TeamMembers.UI.ViewModels
 
             this.eventAggregator
                 .GetEvent<OpenTeamMemberEditViewEvent>()
-                .Subscribe(this.OnOpenTeamMemberEditView, ThreadOption.UIThread, true);
+                .Subscribe(this.OnOpenTeamMemberEditView);
 
             this.eventAggregator
                 .GetEvent<TeamMemberDeletedEvent>()
-                .Subscribe(this.OnTeamMemberDeleted, ThreadOption.UIThread, true);
+                .Subscribe(this.OnTeamMemberDeleted);
 
             this.AddTeamMemberCommand = new DelegateCommand(this.OnAddTeamMember);
             this.CloseTeamMemberTabCommand = new DelegateCommand<ITeamMemberEditViewModel>(this.OnCloseTeamMemberTab);
