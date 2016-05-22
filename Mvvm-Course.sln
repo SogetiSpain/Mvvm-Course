@@ -108,6 +108,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SogetiSpain.UnitTesting.Exa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SogetiSpain.UnitTesting.Example.Tests", "Demos\6.1\SogetiSpain.UnitTesting.Example.Tests\SogetiSpain.UnitTesting.Example.Tests.csproj", "{3D272E5E-888D-4635-B5F4-A743D0B5C177}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[6.2] Ejemplo Pruebas Unitarias para ViewModels", "[6.2] Ejemplo Pruebas Unitarias para ViewModels", "{FF0A073E-8E07-4CAA-827C-13A639D2622E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SogetiSpain.TeamMembers.DataAccess", "Demos\6.2\SogetiSpain.TeamMembers.DataAccess\SogetiSpain.TeamMembers.DataAccess.csproj", "{849519B2-51B0-4337-86D7-CC5F754A719A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SogetiSpain.TeamMembers.Model", "Demos\6.2\SogetiSpain.TeamMembers.Model\SogetiSpain.TeamMembers.Model.csproj", "{9E4EB3D4-C2F0-4F60-A7F6-3B82C54AA702}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SogetiSpain.TeamMembers.UI", "Demos\6.2\SogetiSpain.TeamMembers.UI\SogetiSpain.TeamMembers.UI.csproj", "{6DBB78C0-2FC4-4E1D-966A-1F2F9A03EF82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SogetiSpain.TeamMembers.UITests", "Demos\6.2\SogetiSpain.TeamMembers.UITests\SogetiSpain.TeamMembers.UITests.csproj", "{D1C70B16-7886-40D5-B977-263EB80A3421}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -230,6 +240,22 @@ Global
 		{3D272E5E-888D-4635-B5F4-A743D0B5C177}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D272E5E-888D-4635-B5F4-A743D0B5C177}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D272E5E-888D-4635-B5F4-A743D0B5C177}.Release|Any CPU.Build.0 = Release|Any CPU
+		{849519B2-51B0-4337-86D7-CC5F754A719A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{849519B2-51B0-4337-86D7-CC5F754A719A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{849519B2-51B0-4337-86D7-CC5F754A719A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{849519B2-51B0-4337-86D7-CC5F754A719A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E4EB3D4-C2F0-4F60-A7F6-3B82C54AA702}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E4EB3D4-C2F0-4F60-A7F6-3B82C54AA702}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E4EB3D4-C2F0-4F60-A7F6-3B82C54AA702}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E4EB3D4-C2F0-4F60-A7F6-3B82C54AA702}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DBB78C0-2FC4-4E1D-966A-1F2F9A03EF82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DBB78C0-2FC4-4E1D-966A-1F2F9A03EF82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DBB78C0-2FC4-4E1D-966A-1F2F9A03EF82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DBB78C0-2FC4-4E1D-966A-1F2F9A03EF82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1C70B16-7886-40D5-B977-263EB80A3421}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1C70B16-7886-40D5-B977-263EB80A3421}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1C70B16-7886-40D5-B977-263EB80A3421}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1C70B16-7886-40D5-B977-263EB80A3421}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -270,5 +296,10 @@ Global
 		{F39AB85D-8F06-42CC-B7B1-EC860CF3B1BA} = {7E331894-AB47-4A4D-A33C-0F88EB1FBD39}
 		{490EDA24-DE29-464D-B3ED-AF846FFE6309} = {F39AB85D-8F06-42CC-B7B1-EC860CF3B1BA}
 		{3D272E5E-888D-4635-B5F4-A743D0B5C177} = {F39AB85D-8F06-42CC-B7B1-EC860CF3B1BA}
+		{FF0A073E-8E07-4CAA-827C-13A639D2622E} = {7E331894-AB47-4A4D-A33C-0F88EB1FBD39}
+		{849519B2-51B0-4337-86D7-CC5F754A719A} = {FF0A073E-8E07-4CAA-827C-13A639D2622E}
+		{9E4EB3D4-C2F0-4F60-A7F6-3B82C54AA702} = {FF0A073E-8E07-4CAA-827C-13A639D2622E}
+		{6DBB78C0-2FC4-4E1D-966A-1F2F9A03EF82} = {FF0A073E-8E07-4CAA-827C-13A639D2622E}
+		{D1C70B16-7886-40D5-B977-263EB80A3421} = {FF0A073E-8E07-4CAA-827C-13A639D2622E}
 	EndGlobalSection
 EndGlobal

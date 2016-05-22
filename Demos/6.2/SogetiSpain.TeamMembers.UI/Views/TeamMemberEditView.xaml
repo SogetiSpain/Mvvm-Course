@@ -1,0 +1,95 @@
+﻿<UserControl x:Class="SogetiSpain.TeamMembers.UI.Views.TeamMemberEditView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SogetiSpain.TeamMembers.UI.Views"
+             d:DesignHeight="350"
+             d:DesignWidth="700"
+             mc:Ignorable="d" 
+             Background="#333333">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition MinWidth="200" />
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- ##### [ First Name ] ##### -->
+
+        <Label x:Name="FirstNameLabel"
+               Content="Firstname"
+               Grid.Column="0"
+               Grid.Row="0"
+               Margin="5" />
+        <TextBox x:Name="FirstNameTextBox"
+                 Grid.Column="1"
+                 Grid.Row="0"
+                 Text="{Binding TeamMember.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <!-- ##### [ Last Name ] ##### -->
+
+        <Label x:Name="LastNameLabel"
+               Content="Lastname"
+               Grid.Column="0"
+               Grid.Row="1"
+               Margin="5" />
+        <TextBox x:Name="LastNameTextBox"
+                 Grid.Column="1"
+                 Grid.Row="1"
+                 Text="{Binding TeamMember.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <!-- ##### [ Birthday ]  ##### -->
+
+        <Label x:Name="BirthdayLabel"
+               Content="Birthday"
+               Grid.Column="0"
+               Grid.Row="2"
+               Margin="5" />
+        <DatePicker x:Name="BirthdayDatePicker"
+                    Grid.Column="1"
+                    Grid.Row="2"
+                    HorizontalAlignment="Left"
+                    SelectedDate="{Binding TeamMember.Birthday, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Width="150" />
+
+        <!-- ##### [ Is Developer ]  ##### -->
+
+        <Label x:Name="IsDeveloperLabel"
+               Content="Is Developer"
+               Grid.Row="3"
+               Margin="5 0" />
+        <CheckBox x:Name="IsDeveloperCheckBox"
+                  Grid.Column="1"
+                  Grid.Row="3"
+                  HorizontalAlignment="Left"
+                  IsChecked="{Binding TeamMember.IsDeveloper, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  VerticalAlignment="Center" />
+
+        <!-- ##### [ Buttons ] ##### -->
+
+        <StackPanel x:Name="ButtonsPanel"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="4"
+                    Grid.Row="4"
+                    HorizontalAlignment="Left"
+                    Orientation="Horizontal"
+                    VerticalAlignment="Bottom">
+            <Button x:Name="SaveCommand"
+                    Command="{Binding SaveCommand, Mode=OneTime}"
+                    Content="Save"
+                    Margin="5" />
+            <Button x:Name="DeleteCommand"
+                    Command="{Binding DeleteCommand, Mode=OneTime}"
+                    Content="Delete"
+                    Margin="5" />
+        </StackPanel>
+    </Grid>
+</UserControl>
