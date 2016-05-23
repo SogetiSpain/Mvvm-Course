@@ -6,16 +6,22 @@
 // ----------------------------------------------------------------------------
 namespace SogetiSpain.TeamMembers.UITests.ViewModels
 {
-    using SogetiSpain.TeamMembers.UITests.Extensions;
     using System.Collections.Generic;
+    using System.Linq;
+
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+
     using Model;
+
     using Moq;
+
     using Prism.Events;
+
+    using SogetiSpain.TeamMembers.UITests.Extensions;
+
     using UI.Events;
     using UI.Models;
     using UI.ViewModels;
-    using System.Linq;
 
     /// <summary>
     /// Represents the tests of the view model for main window.
@@ -23,126 +29,195 @@ namespace SogetiSpain.TeamMembers.UITests.ViewModels
     [TestClass]
     public class MainWindowViewModelTests
     {
-        private Mock<INavigationViewModel> _navigationViewModelMock;
-        private MainWindowViewModel _viewModel;
-        private Mock<IEventAggregator> _eventAggregatorMock;
-        private OpenTeamMemberEditViewEvent _openFriendEditViewEvent;
-        private List<Mock<ITeamMemberEditViewModel>> _friendEditViewModelMocks;
-        private TeamMemberDeletedEvent _friendDeletedEvent;
+        #region Fields
 
+        /// <summary>
+        /// Defines the event aggregator mock.
+        /// </summary>
+        private Mock<IEventAggregator> eventAggregatorMock;
+
+        /// <summary>
+        /// Defines the navigation view model mock.
+        /// </summary>
+        private Mock<INavigationViewModel> navigationViewModelMock;
+
+        /// <summary>
+        /// Defines the open team member edit view event.
+        /// </summary>
+        private OpenTeamMemberEditViewEvent openTeamMemberEditViewEvent;
+
+        /// <summary>
+        /// Defines the team member deleted event.
+        /// </summary>
+        private TeamMemberDeletedEvent teamMemberDeletedEvent;
+
+        /// <summary>
+        /// Defines the team member edit view model mocks.
+        /// </summary>
+        private List<Mock<ITeamMemberEditViewModel>> teamMemberEditViewModelMocks;
+
+        /// <summary>
+        /// Defines the view model.
+        /// </summary>
+        private MainWindowViewModel viewModel;
+
+        #endregion Fields
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindowViewModelTests"/> class.
+        /// </summary>
         public MainWindowViewModelTests()
         {
-            _friendEditViewModelMocks = new List<Mock<ITeamMemberEditViewModel>>();
-            _navigationViewModelMock = new Mock<INavigationViewModel>();
+            this.teamMemberEditViewModelMocks = new List<Mock<ITeamMemberEditViewModel>>();
+            this.navigationViewModelMock = new Mock<INavigationViewModel>();
 
-            _openFriendEditViewEvent = new OpenTeamMemberEditViewEvent();
-            _friendDeletedEvent = new TeamMemberDeletedEvent();
-            _eventAggregatorMock = new Mock<IEventAggregator>();
-            _eventAggregatorMock.Setup(ea => ea.GetEvent<OpenTeamMemberEditViewEvent>())
-              .Returns(_openFriendEditViewEvent);
-            _eventAggregatorMock.Setup(ea => ea.GetEvent<TeamMemberDeletedEvent>())
-              .Returns(_friendDeletedEvent);
+            this.openTeamMemberEditViewEvent = new OpenTeamMemberEditViewEvent();
+            this.teamMemberDeletedEvent = new TeamMemberDeletedEvent();
+            this.eventAggregatorMock = new Mock<IEventAggregator>();
+            this.eventAggregatorMock.Setup(ea => ea.GetEvent<OpenTeamMemberEditViewEvent>())
+            .Returns(this.openTeamMemberEditViewEvent);
+            this.eventAggregatorMock.Setup(ea => ea.GetEvent<TeamMemberDeletedEvent>())
+            .Returns(this.teamMemberDeletedEvent);
 
-            _viewModel = new MainWindowViewModel(
-                _eventAggregatorMock.Object,
-                _navigationViewModelMock.Object,
-                CreateTeamMemberEditViewModel);
-
+            this.viewModel = new MainWindowViewModel(
+                this.eventAggregatorMock.Object,
+                this.navigationViewModelMock.Object,
+                this.CreateTeamMemberEditViewModel);
         }
 
+        #endregion Constructors
+
+        #region Methods
+
+        /// <summary>
+        /// Should add the team member edit view model and load and select it.
+        /// </summary>
+        [TestMethod]
+        public void ShouldAddTeamMemberEditViewModelAndLoadAndSelectIt()
+        {
+            const int TeamMemberId = 7;
+            this.openTeamMemberEditViewEvent.Publish(TeamMemberId);
+
+            Assert.AreEqual(1, this.viewModel.TeamMemberEditViewModels.Count);
+            var teamMemberEditViewModel = this.viewModel.TeamMemberEditViewModels.First();
+            Assert.AreEqual(teamMemberEditViewModel, this.viewModel.SelectedTeamMemberEditViewModel);
+            this.teamMemberEditViewModelMocks.First().Verify(vm => vm.Load(TeamMemberId), Times.Once);
+        }
+
+        /// <summary>
+        /// Should add the team member edit view model and load it with identifier null and select it.
+        /// </summary>
+        [TestMethod]
+        public void ShouldAddTeamMemberEditViewModelAndLoadItWithIdNullAndSelectIt()
+        {
+            this.viewModel.AddTeamMemberCommand.Execute(null);
+
+            Assert.AreEqual(1, this.viewModel.TeamMemberEditViewModels.Count);
+            var teamMemberEditViewModel = this.viewModel.TeamMemberEditViewModels.First();
+            Assert.AreEqual(teamMemberEditViewModel, this.viewModel.SelectedTeamMemberEditViewModel);
+            this.teamMemberEditViewModelMocks.First().Verify(vm => vm.Load(null), Times.Once);
+        }
+
+        /// <summary>
+        /// Should add the team member edit view models only once.
+        /// </summary>
+        [TestMethod]
+        public void ShouldAddTeamMemberEditViewModelsOnlyOnce()
+        {
+            this.openTeamMemberEditViewEvent.Publish(5);
+            this.openTeamMemberEditViewEvent.Publish(5);
+            this.openTeamMemberEditViewEvent.Publish(6);
+            this.openTeamMemberEditViewEvent.Publish(7);
+            this.openTeamMemberEditViewEvent.Publish(7);
+
+            Assert.AreEqual(3, this.viewModel.TeamMemberEditViewModels.Count);
+        }
+
+        /// <summary>
+        /// Should call the load method of the navigation view model.
+        /// </summary>
         [TestMethod]
         public void ShouldCallTheLoadMethodOfTheNavigationViewModel()
         {
-            _viewModel.OnLoad();
+            this.viewModel.OnLoad();
 
-            _navigationViewModelMock.Verify(vm => vm.OnLoad(), Times.Once);
+            this.navigationViewModelMock.Verify(vm => vm.OnLoad(), Times.Once);
         }
 
+        /// <summary>
+        /// Should raise the property changed event for selected team member edit view model.
+        /// </summary>
         [TestMethod]
-        public void ShouldAddFriendEditViewModelAndLoadAndSelectIt()
+        public void ShouldRaisePropertyChangedEventForSelectedTeamMemberEditViewModel()
         {
-            const int friendId = 7;
-            _openFriendEditViewEvent.Publish(friendId);
-
-            Assert.AreEqual(1, _viewModel.TeamMemberEditViewModels.Count);
-            var friendEditVm = _viewModel.TeamMemberEditViewModels.First();
-            Assert.AreEqual(friendEditVm, _viewModel.SelectedTeamMemberEditViewModel);
-            _friendEditViewModelMocks.First().Verify(vm => vm.Load(friendId), Times.Once);
-        }
-
-        [TestMethod]
-        public void ShouldAddFriendEditViewModelAndLoadItWithIdNullAndSelectIt()
-        {
-            _viewModel.AddTeamMemberCommand.Execute(null);
-
-            Assert.AreEqual(1, _viewModel.TeamMemberEditViewModels.Count);
-            var friendEditVm = _viewModel.TeamMemberEditViewModels.First();
-            Assert.AreEqual(friendEditVm, _viewModel.SelectedTeamMemberEditViewModel);
-            _friendEditViewModelMocks.First().Verify(vm => vm.Load(null), Times.Once);
-        }
-
-        [TestMethod]
-        public void ShouldAddFriendEditViewModelsOnlyOnce()
-        {
-            _openFriendEditViewEvent.Publish(5);
-            _openFriendEditViewEvent.Publish(5);
-            _openFriendEditViewEvent.Publish(6);
-            _openFriendEditViewEvent.Publish(7);
-            _openFriendEditViewEvent.Publish(7);
-
-            Assert.AreEqual(3, _viewModel.TeamMemberEditViewModels.Count);
-        }
-
-        [TestMethod]
-        public void ShouldRaisePropertyChangedEventForSelectedFriendEditViewModel()
-        {
-            var friendEditVmMock = new Mock<ITeamMemberEditViewModel>();
-            var fired = _viewModel.IsPropertyChangedFired(() =>
+            var teamMemberEditViewModelMock = new Mock<ITeamMemberEditViewModel>();
+            var fired = this.viewModel.IsPropertyChangedFired(
+                            () =>
             {
-                _viewModel.SelectedTeamMemberEditViewModel = friendEditVmMock.Object;
-            }, nameof(_viewModel.SelectedTeamMemberEditViewModel));
+                this.viewModel.SelectedTeamMemberEditViewModel = teamMemberEditViewModelMock.Object;
+            },
+            nameof(this.viewModel.SelectedTeamMemberEditViewModel));
 
             Assert.IsTrue(fired);
         }
 
+        /// <summary>
+        /// Should remove the team member edit view model on close team member tab command.
+        /// </summary>
         [TestMethod]
-        public void ShouldRemoveFriendEditViewModelOnCloseFriendTabCommand()
+        public void ShouldRemoveTeamMemberEditViewModelOnCloseTeamMemberTabCommand()
         {
-            _openFriendEditViewEvent.Publish(7);
+            this.openTeamMemberEditViewEvent.Publish(7);
 
-            var friendEditVm = _viewModel.SelectedTeamMemberEditViewModel;
+            var teamMemberEditViewModel = this.viewModel.SelectedTeamMemberEditViewModel;
 
-            _viewModel.CloseTeamMemberTabCommand.Execute(friendEditVm);
+            this.viewModel.CloseTeamMemberTabCommand.Execute(teamMemberEditViewModel);
 
-            Assert.AreEqual(0, _viewModel.TeamMemberEditViewModels.Count);
+            Assert.AreEqual(0, this.viewModel.TeamMemberEditViewModels.Count);
         }
 
+        /// <summary>
+        /// Should remove the team member edit view model on team member deleted event.
+        /// </summary>
         [TestMethod]
-        public void ShouldRemoveFriendEditViewModelOnFriendDeletedEvent()
+        public void ShouldRemoveTeamMemberEditViewModelOnTeamMemberDeletedEvent()
         {
-            const int deletedFriendId = 7;
+            const int DeletedTeamMemberId = 7;
 
-            _openFriendEditViewEvent.Publish(deletedFriendId);
-            _openFriendEditViewEvent.Publish(8);
-            _openFriendEditViewEvent.Publish(9);
+            this.openTeamMemberEditViewEvent.Publish(DeletedTeamMemberId);
+            this.openTeamMemberEditViewEvent.Publish(8);
+            this.openTeamMemberEditViewEvent.Publish(9);
 
-            _friendDeletedEvent.Publish(deletedFriendId);
+            this.teamMemberDeletedEvent.Publish(DeletedTeamMemberId);
 
-            Assert.AreEqual(2, _viewModel.TeamMemberEditViewModels.Count);
-            Assert.IsTrue(_viewModel.TeamMemberEditViewModels.All(vm => vm.TeamMember.Id != deletedFriendId));
+            Assert.AreEqual(2, this.viewModel.TeamMemberEditViewModels.Count);
+            Assert.IsTrue(this.viewModel.TeamMemberEditViewModels.All(vm => vm.TeamMember.Id != DeletedTeamMemberId));
         }
 
+        /// <summary>
+        /// Creates the team member edit view model.
+        /// </summary>
+        /// <returns>
+        /// The team member edit view model.
+        /// </returns>
         private ITeamMemberEditViewModel CreateTeamMemberEditViewModel()
         {
-            var friendEditViewModelMock = new Mock<ITeamMemberEditViewModel>();
-            friendEditViewModelMock.Setup(vm => vm.Load(It.IsAny<int>()))
-              .Callback<int?>(friendId =>
-              {
-                  friendEditViewModelMock.Setup(vm => vm.TeamMember)
-            .Returns(new WrappedTeamMember(new TeamMember() { Id = friendId.Value }));
-              });
-            _friendEditViewModelMocks.Add(friendEditViewModelMock);
-            return friendEditViewModelMock.Object;
+            var teamMemberEditViewModelMock = new Mock<ITeamMemberEditViewModel>();
+            teamMemberEditViewModelMock.Setup(vm => vm.Load(It.IsAny<int>()))
+            .Callback<int?>(teamMemberId =>
+            {
+                teamMemberEditViewModelMock.Setup(vm => vm.TeamMember)
+                .Returns(new WrappedTeamMember(new TeamMember()
+                {
+                    Id = teamMemberId.Value
+                }));
+            });
+            this.teamMemberEditViewModelMocks.Add(teamMemberEditViewModelMock);
+            return teamMemberEditViewModelMock.Object;
         }
+
+        #endregion Methods
     }
 }

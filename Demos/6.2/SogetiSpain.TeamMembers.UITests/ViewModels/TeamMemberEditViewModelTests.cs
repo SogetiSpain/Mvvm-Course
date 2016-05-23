@@ -6,18 +6,20 @@
 // ----------------------------------------------------------------------------
 namespace SogetiSpain.TeamMembers.UITests.ViewModels
 {
-    using SogetiSpain.TeamMembers.UITests.Extensions;
-    using System.Collections.Generic;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+
     using Model;
+
     using Moq;
+
     using Prism.Events;
-    using UI.Events;
-    using UI.Models;
-    using UI.ViewModels;
-    using System.Linq;
+
+    using SogetiSpain.TeamMembers.UITests.Extensions;
+
     using UI.DataProviders;
     using UI.Dialogs;
+    using UI.Events;
+    using UI.ViewModels;
 
     /// <summary>
     /// Represents the tests of the view model for team member edit view.
@@ -25,242 +27,399 @@ namespace SogetiSpain.TeamMembers.UITests.ViewModels
     [TestClass]
     public class TeamMemberEditViewModelTests
     {
-        private const int _friendId = 5;
-        private Mock<ITeamMemberDataProvider> _dataProviderMock;
-        private TeamMemberEditViewModel _viewModel;
-        private Mock<TeamMemberSavedEvent> _friendSavedEventMock;
-        private Mock<IEventAggregator> _eventAggregatorMock;
-        private Mock<TeamMemberDeletedEvent> _friendDeletedEventMock;
-        private Mock<IMessageDialogService> _messageDialogServiceMock;
+        #region Fields
 
+        /// <summary>
+        /// Defines the team member identifier.
+        /// </summary>
+        private const int TeamMemberId = 5;
+
+        /// <summary>
+        /// Defines the data provider mock.
+        /// </summary>
+        private Mock<ITeamMemberDataProvider> dataProviderMock;
+
+        /// <summary>
+        /// Defines the event aggregator mock.
+        /// </summary>
+        private Mock<IEventAggregator> eventAggregatorMock;
+
+        /// <summary>
+        /// Defines the message dialog service mock.
+        /// </summary>
+        private Mock<IMessageDialogService> messageDialogServiceMock;
+
+        /// <summary>
+        /// Defines the team member deleted event mock.
+        /// </summary>
+        private Mock<TeamMemberDeletedEvent> teamMemberDeletedEventMock;
+
+        /// <summary>
+        /// Defines the team member saved event mock.
+        /// </summary>
+        private Mock<TeamMemberSavedEvent> teamMemberSavedEventMock;
+
+        /// <summary>
+        /// Defines the view model.
+        /// </summary>
+        private TeamMemberEditViewModel viewModel;
+
+        #endregion Fields
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TeamMemberEditViewModelTests"/> class.
+        /// </summary>
         public TeamMemberEditViewModelTests()
         {
-            _friendDeletedEventMock = new Mock<TeamMemberDeletedEvent>();
-            _friendSavedEventMock = new Mock<TeamMemberSavedEvent>();
+            this.teamMemberDeletedEventMock = new Mock<TeamMemberDeletedEvent>();
+            this.teamMemberSavedEventMock = new Mock<TeamMemberSavedEvent>();
 
-            _eventAggregatorMock = new Mock<IEventAggregator>();
-            _eventAggregatorMock.Setup(ea => ea.GetEvent<TeamMemberSavedEvent>())
-              .Returns(_friendSavedEventMock.Object);
-            _eventAggregatorMock.Setup(ea => ea.GetEvent<TeamMemberDeletedEvent>())
-              .Returns(_friendDeletedEventMock.Object);
+            this.eventAggregatorMock = new Mock<IEventAggregator>();
+            this.eventAggregatorMock.Setup(ea => ea.GetEvent<TeamMemberSavedEvent>())
+            .Returns(this.teamMemberSavedEventMock.Object);
+            this.eventAggregatorMock.Setup(ea => ea.GetEvent<TeamMemberDeletedEvent>())
+            .Returns(this.teamMemberDeletedEventMock.Object);
 
-            _dataProviderMock = new Mock<ITeamMemberDataProvider>();
-            _dataProviderMock.Setup(dp => dp.GetTeamMemberById(_friendId))
-              .Returns(new TeamMember { Id = _friendId, FirstName = "Antonio" });
+            this.dataProviderMock = new Mock<ITeamMemberDataProvider>();
+            this.dataProviderMock.Setup(dp => dp.GetTeamMemberById(TeamMemberId))
+            .Returns(new TeamMember { Id = TeamMemberId, FirstName = "Antonio" });
 
-            _messageDialogServiceMock = new Mock<IMessageDialogService>();
+            this.messageDialogServiceMock = new Mock<IMessageDialogService>();
 
-            _viewModel = new TeamMemberEditViewModel(_dataProviderMock.Object,
-              _eventAggregatorMock.Object,
-              _messageDialogServiceMock.Object);
+            this.viewModel = new TeamMemberEditViewModel(
+                this.dataProviderMock.Object,
+                this.eventAggregatorMock.Object,
+                this.messageDialogServiceMock.Object);
         }
 
+        #endregion Constructors
+
+        #region Methods
+
+        /// <summary>
+        /// Should accept the changes when save command is executed.
+        /// </summary>
         [TestMethod]
-        public void ShouldLoadFriend()
+        public void ShouldAcceptChangesWhenSaveCommandIsExecuted()
         {
-            _viewModel.Load(_friendId);
+            this.viewModel.Load(TeamMemberId);
+            this.viewModel.TeamMember.FirstName = "Changed";
 
-            Assert.IsNotNull(_viewModel.TeamMember);
-            Assert.AreEqual(_friendId, _viewModel.TeamMember.Id);
-
-            _dataProviderMock.Verify(dp => dp.GetTeamMemberById(_friendId), Times.Once);
+            this.viewModel.SaveCommand.Execute(null);
+            Assert.IsFalse(this.viewModel.TeamMember.IsChanged);
         }
 
+        /// <summary>
+        /// Should call the delete team member when delete command is executed and dialog result is yes.
+        /// </summary>
         [TestMethod]
-        public void ShouldRaisePropertyChangedEventForFriend()
+        public void ShouldCallDeleteTeamMemberWhenDeleteCommandIsExecutedAndDialogResultIsYes()
         {
-            var fired = _viewModel.IsPropertyChangedFired(
-              () => _viewModel.Load(_friendId),
-              nameof(_viewModel.TeamMember));
+            this.viewModel.Load(TeamMemberId);
 
-            Assert.IsTrue(fired);
+            this.messageDialogServiceMock.Setup(
+                ds => ds.ShowYesNoDialog(
+                    It.IsAny<string>(),
+                    It.IsAny<string>())).Returns(MessageDialogResult.Yes);
+
+            this.viewModel.DeleteCommand.Execute(null);
+
+            this.dataProviderMock.Verify(
+                dp => dp.DeleteTeamMeamber(TeamMemberId),
+                Times.Exactly(1));
+
+            this.messageDialogServiceMock.Verify(
+                ds => ds.ShowYesNoDialog(
+                    It.IsAny<string>(),
+                    It.IsAny<string>()),
+                Times.Once);
         }
 
+        /// <summary>
+        /// Should call the save method of data provider when save command is executed.
+        /// </summary>
         [TestMethod]
-        public void ShouldDisableSaveCommandWhenFriendIsLoaded()
+        public void ShouldCallSaveMethodOfDataProviderWhenSaveCommandIsExecuted()
         {
-            _viewModel.Load(_friendId);
+            this.viewModel.Load(TeamMemberId);
+            this.viewModel.TeamMember.FirstName = "Changed";
 
-            Assert.IsFalse(_viewModel.SaveCommand.CanExecute(null));
+            this.viewModel.SaveCommand.Execute(null);
+            this.dataProviderMock.Verify(dp => dp.SaveTeamMember(this.viewModel.TeamMember.Model), Times.Once);
         }
 
+        /// <summary>
+        /// Should create the new team member when null is passed to load method.
+        /// </summary>
         [TestMethod]
-        public void ShouldEnableSaveCommandWhenFriendIsChanged()
+        public void ShouldCreateNewTeamMemberWhenNullIsPassedToLoadMethod()
         {
-            _viewModel.Load(_friendId);
+            this.viewModel.Load(null);
 
-            _viewModel.TeamMember.FirstName = "Changed";
+            Assert.IsNotNull(this.viewModel.TeamMember);
+            Assert.AreEqual(0, this.viewModel.TeamMember.Id);
+            Assert.IsNull(this.viewModel.TeamMember.FirstName);
+            Assert.IsNull(this.viewModel.TeamMember.LastName);
+            Assert.IsNull(this.viewModel.TeamMember.Birthday);
+            Assert.IsFalse(this.viewModel.TeamMember.IsDeveloper);
 
-            Assert.IsTrue(_viewModel.SaveCommand.CanExecute(null));
+            this.dataProviderMock.Verify(dp => dp.GetTeamMemberById(It.IsAny<int>()), Times.Never);
         }
 
+        /// <summary>
+        /// Should disable the delete command for new team member.
+        /// </summary>
+        [TestMethod]
+        public void ShouldDisableDeleteCommandForNewTeamMember()
+        {
+            this.viewModel.Load(null);
+            Assert.IsFalse(this.viewModel.DeleteCommand.CanExecute(null));
+        }
+
+        /// <summary>
+        /// Should disable the delete command without load.
+        /// </summary>
+        [TestMethod]
+        public void ShouldDisableDeleteCommandWithoutLoad()
+        {
+            Assert.IsFalse(this.viewModel.DeleteCommand.CanExecute(null));
+        }
+
+        /// <summary>
+        /// Should disable the save command when team member is loaded.
+        /// </summary>
+        [TestMethod]
+        public void ShouldDisableSaveCommandWhenTeamMemberIsLoaded()
+        {
+            this.viewModel.Load(TeamMemberId);
+
+            Assert.IsFalse(this.viewModel.SaveCommand.CanExecute(null));
+        }
+
+        /// <summary>
+        /// Should disable the save command without load.
+        /// </summary>
         [TestMethod]
         public void ShouldDisableSaveCommandWithoutLoad()
         {
-            Assert.IsFalse(_viewModel.SaveCommand.CanExecute(null));
+            Assert.IsFalse(this.viewModel.SaveCommand.CanExecute(null));
         }
 
+        /// <summary>
+        /// Should display the correct message in delete dialog.
+        /// </summary>
         [TestMethod]
-        public void ShouldRaiseCanExecuteChangedForSaveCommandWhenFriendIsChanged()
+        public void ShouldDisplayCorrectMessageInDeleteDialog()
         {
-            _viewModel.Load(_friendId);
-            var fired = false;
-            _viewModel.SaveCommand.CanExecuteChanged += (s, e) => fired = true;
-            _viewModel.TeamMember.FirstName = "Changed";
-            Assert.IsTrue(fired);
+            this.viewModel.Load(TeamMemberId);
+
+            var f = this.viewModel.TeamMember;
+            f.FirstName = "Antonio";
+            f.LastName = "Fernández";
+
+            this.viewModel.DeleteCommand.Execute(null);
+
+            this.messageDialogServiceMock.Verify(
+                d => d.ShowYesNoDialog(
+                    "Delete Team Member",
+                    $"Do you really want to delete the team member '{f.FirstName} {f.LastName}'"),
+                Times.Once);
         }
 
+        /// <summary>
+        /// Should enable the delete command for existing team member.
+        /// </summary>
         [TestMethod]
-        public void ShouldRaiseCanExecuteChangedForSaveCommandAfterLoad()
+        public void ShouldEnableDeleteCommandForExistingTeamMember()
         {
-            var fired = false;
-            _viewModel.SaveCommand.CanExecuteChanged += (s, e) => fired = true;
-            _viewModel.Load(_friendId);
-            Assert.IsTrue(fired);
+            this.viewModel.Load(TeamMemberId);
+            Assert.IsTrue(this.viewModel.DeleteCommand.CanExecute(null));
         }
 
+        /// <summary>
+        /// Should enable the save command when team member is changed.
+        /// </summary>
+        [TestMethod]
+        public void ShouldEnableSaveCommandWhenTeamMemberIsChanged()
+        {
+            this.viewModel.Load(TeamMemberId);
+
+            this.viewModel.TeamMember.FirstName = "Changed";
+
+            Assert.IsTrue(this.viewModel.SaveCommand.CanExecute(null));
+        }
+
+        /// <summary>
+        /// Should load the team member.
+        /// </summary>
+        [TestMethod]
+        public void ShouldLoadTeamMember()
+        {
+            this.viewModel.Load(TeamMemberId);
+
+            Assert.IsNotNull(this.viewModel.TeamMember);
+            Assert.AreEqual(TeamMemberId, this.viewModel.TeamMember.Id);
+
+            this.dataProviderMock.Verify(dp => dp.GetTeamMemberById(TeamMemberId), Times.Once);
+        }
+
+        /// <summary>
+        /// Should not call the delete team member when delete command is executed and dialog result is no.
+        /// </summary>
+        [TestMethod]
+        public void ShouldNotCallDeleteTeamMemberWhenDeleteCommandIsExecutedAndDialogResultIsNo()
+        {
+            this.viewModel.Load(TeamMemberId);
+
+            this.messageDialogServiceMock.Setup(
+                ds => ds.ShowYesNoDialog(
+                    It.IsAny<string>(),
+                    It.IsAny<string>())).Returns(MessageDialogResult.No);
+
+            this.viewModel.DeleteCommand.Execute(null);
+
+            this.dataProviderMock.Verify(
+                dp => dp.DeleteTeamMeamber(TeamMemberId),
+                Times.Exactly(0));
+
+            this.messageDialogServiceMock.Verify(
+                ds => ds.ShowYesNoDialog(
+                    It.IsAny<string>(),
+                    It.IsAny<string>()),
+                Times.Once);
+        }
+
+        /// <summary>
+        /// Should not publish the team member deleted event when delete command is executed and dialog result is yes.
+        /// </summary>
+        [TestMethod]
+        public void ShouldNotPublishTeamMemberDeletedEventWhenDeleteCommandIsExecutedAndDialogResultIsYes()
+        {
+            this.viewModel.Load(TeamMemberId);
+
+            this.messageDialogServiceMock.Setup(
+                ds => ds.ShowYesNoDialog(
+                    It.IsAny<string>(),
+                    It.IsAny<string>())).Returns(MessageDialogResult.Yes);
+
+            this.viewModel.DeleteCommand.Execute(null);
+
+            this.teamMemberDeletedEventMock.Verify(
+                e => e.Publish(TeamMemberId),
+                Times.Exactly(1));
+
+            this.messageDialogServiceMock.Verify(
+                ds => ds.ShowYesNoDialog(
+                    It.IsAny<string>(),
+                    It.IsAny<string>()),
+                Times.Once);
+        }
+
+        /// <summary>
+        /// Should publish the team member deleted event when delete command is executed and dialog result is yes.
+        /// </summary>
+        [TestMethod]
+        public void ShouldPublishTeamMemberDeletedEventWhenDeleteCommandIsExecutedAndDialogResultIsYes()
+        {
+            this.viewModel.Load(TeamMemberId);
+
+            this.messageDialogServiceMock.Setup(
+                ds => ds.ShowYesNoDialog(
+                    It.IsAny<string>(),
+                    It.IsAny<string>())).Returns(MessageDialogResult.Yes);
+
+            this.viewModel.DeleteCommand.Execute(null);
+
+            this.teamMemberDeletedEventMock.Verify(
+                e => e.Publish(TeamMemberId),
+                Times.Exactly(1));
+
+            this.messageDialogServiceMock.Verify(
+                ds => ds.ShowYesNoDialog(
+                    It.IsAny<string>(),
+                    It.IsAny<string>()),
+                Times.Once);
+        }
+
+        /// <summary>
+        /// Should publish the team member saved event when save command is executed.
+        /// </summary>
+        [TestMethod]
+        public void ShouldPublishTeamMemberSavedEventWhenSaveCommandIsExecuted()
+        {
+            this.viewModel.Load(TeamMemberId);
+            this.viewModel.TeamMember.FirstName = "Changed";
+
+            this.viewModel.SaveCommand.Execute(null);
+            this.teamMemberSavedEventMock.Verify(e => e.Publish(this.viewModel.TeamMember.Model), Times.Once);
+        }
+
+        /// <summary>
+        /// Should raise the can execute changed for delete command after load.
+        /// </summary>
         [TestMethod]
         public void ShouldRaiseCanExecuteChangedForDeleteCommandAfterLoad()
         {
             var fired = false;
-            _viewModel.DeleteCommand.CanExecuteChanged += (s, e) => fired = true;
-            _viewModel.Load(_friendId);
+            this.viewModel.DeleteCommand.CanExecuteChanged += (s, e) => fired = true;
+            this.viewModel.Load(TeamMemberId);
             Assert.IsTrue(fired);
         }
 
+        /// <summary>
+        /// Should raise the can execute changed for delete command when accepting changes.
+        /// </summary>
         [TestMethod]
         public void ShouldRaiseCanExecuteChangedForDeleteCommandWhenAcceptingChanges()
         {
-            _viewModel.Load(_friendId);
+            this.viewModel.Load(TeamMemberId);
             var fired = false;
-            _viewModel.TeamMember.FirstName = "Changed";
-            _viewModel.DeleteCommand.CanExecuteChanged += (s, e) => fired = true;
-            _viewModel.TeamMember.AcceptChanges();
+            this.viewModel.TeamMember.FirstName = "Changed";
+            this.viewModel.DeleteCommand.CanExecuteChanged += (s, e) => fired = true;
+            this.viewModel.TeamMember.AcceptChanges();
             Assert.IsTrue(fired);
         }
 
+        /// <summary>
+        /// Should raise the can execute changed for save command after load.
+        /// </summary>
         [TestMethod]
-        public void ShouldCallSaveMethodOfDataProviderWhenSaveCommandIsExecuted()
+        public void ShouldRaiseCanExecuteChangedForSaveCommandAfterLoad()
         {
-            _viewModel.Load(_friendId);
-            _viewModel.TeamMember.FirstName = "Changed";
-
-            _viewModel.SaveCommand.Execute(null);
-            _dataProviderMock.Verify(dp => dp.SaveTeamMember(_viewModel.TeamMember.Model), Times.Once);
+            var fired = false;
+            this.viewModel.SaveCommand.CanExecuteChanged += (s, e) => fired = true;
+            this.viewModel.Load(TeamMemberId);
+            Assert.IsTrue(fired);
         }
 
+        /// <summary>
+        /// Should raise the can execute changed for save command when team member is changed.
+        /// </summary>
         [TestMethod]
-        public void ShouldAcceptChangesWhenSaveCommandIsExecuted()
+        public void ShouldRaiseCanExecuteChangedForSaveCommandWhenTeamMemberIsChanged()
         {
-            _viewModel.Load(_friendId);
-            _viewModel.TeamMember.FirstName = "Changed";
-
-            _viewModel.SaveCommand.Execute(null);
-            Assert.IsFalse(_viewModel.TeamMember.IsChanged);
+            this.viewModel.Load(TeamMemberId);
+            var fired = false;
+            this.viewModel.SaveCommand.CanExecuteChanged += (s, e) => fired = true;
+            this.viewModel.TeamMember.FirstName = "Changed";
+            Assert.IsTrue(fired);
         }
 
+        /// <summary>
+        /// Should raise the property changed event for team member.
+        /// </summary>
         [TestMethod]
-        public void ShouldPublishFriendSavedEventWhenSaveCommandIsExecuted()
+        public void ShouldRaisePropertyChangedEventForTeamMember()
         {
-            _viewModel.Load(_friendId);
-            _viewModel.TeamMember.FirstName = "Changed";
+            var fired = this.viewModel.IsPropertyChangedFired(
+                            () => this.viewModel.Load(TeamMemberId),
+                            nameof(this.viewModel.TeamMember));
 
-            _viewModel.SaveCommand.Execute(null);
-            _friendSavedEventMock.Verify(e => e.Publish(_viewModel.TeamMember.Model), Times.Once);
+            Assert.IsTrue(fired);
         }
 
-        [TestMethod]
-        public void ShouldCreateNewFriendWhenNullIsPassedToLoadMethod()
-        {
-            _viewModel.Load(null);
-
-            Assert.IsNotNull(_viewModel.TeamMember);
-            Assert.AreEqual(0, _viewModel.TeamMember.Id);
-            Assert.IsNull(_viewModel.TeamMember.FirstName);
-            Assert.IsNull(_viewModel.TeamMember.LastName);
-            Assert.IsNull(_viewModel.TeamMember.Birthday);
-            Assert.IsFalse(_viewModel.TeamMember.IsDeveloper);
-
-            _dataProviderMock.Verify(dp => dp.GetTeamMemberById(It.IsAny<int>()), Times.Never);
-        }
-
-        [TestMethod]
-        public void ShouldEnableDeleteCommandForExistingFriend()
-        {
-            _viewModel.Load(_friendId);
-            Assert.IsTrue(_viewModel.DeleteCommand.CanExecute(null));
-        }
-
-        [TestMethod]
-        public void ShouldDisableDeleteCommandForNewFriend()
-        {
-            _viewModel.Load(null);
-            Assert.IsFalse(_viewModel.DeleteCommand.CanExecute(null));
-        }
-
-        [TestMethod]
-        public void ShouldDisableDeleteCommandWithoutLoad()
-        {
-            Assert.IsFalse(_viewModel.DeleteCommand.CanExecute(null));
-        }
-
-        /*
-        [Theory]
-        [InlineData(MessageDialogResult.Yes, 1)]
-        [InlineData(MessageDialogResult.No, 0)]
-        public void ShouldCallDeleteFriendWhenDeleteCommandIsExecuted(
-          MessageDialogResult result, int expectedDeleteFriendCalls)
-        {
-            _viewModel.Load(_friendId);
-
-            _messageDialogServiceMock.Setup(ds => ds.ShowYesNoDialog(It.IsAny<string>(),
-              It.IsAny<string>())).Returns(result);
-
-            _viewModel.DeleteCommand.Execute(null);
-
-            _dataProviderMock.Verify(dp => dp.DeleteFriend(_friendId),
-              Times.Exactly(expectedDeleteFriendCalls));
-            _messageDialogServiceMock.Verify(ds => ds.ShowYesNoDialog(It.IsAny<string>(),
-              It.IsAny<string>()), Times.Once);
-        }
-        */
-
-        /*
-        [Theory]
-        [InlineData(MessageDialogResult.Yes, 1)]
-        [InlineData(MessageDialogResult.No, 0)]
-        public void ShouldPublishFriendDeletedEventWhenDeleteCommandIsExecuted(
-          MessageDialogResult result, int expectedPublishCalls)
-        {
-            _viewModel.Load(_friendId);
-
-            _messageDialogServiceMock.Setup(ds => ds.ShowYesNoDialog(It.IsAny<string>(),
-             It.IsAny<string>())).Returns(result);
-
-            _viewModel.DeleteCommand.Execute(null);
-
-            _friendDeletedEventMock.Verify(e => e.Publish(_friendId),
-              Times.Exactly(expectedPublishCalls));
-
-            _messageDialogServiceMock.Verify(ds => ds.ShowYesNoDialog(It.IsAny<string>(),
-             It.IsAny<string>()), Times.Once);
-        }
-        */
-
-        [TestMethod]
-        public void ShouldDisplayCorrectMessageInDeleteDialog()
-        {
-            _viewModel.Load(_friendId);
-
-            var f = _viewModel.TeamMember;
-            f.FirstName = "Antonio";
-            f.LastName = "Fernández";
-
-            _viewModel.DeleteCommand.Execute(null);
-
-            _messageDialogServiceMock.Verify(d => d.ShowYesNoDialog("Delete Team Member",
-              $"Do you really want to delete the team member '{f.FirstName} {f.LastName}'"),
-              Times.Once);
-        }
+        #endregion Methods
     }
 }
